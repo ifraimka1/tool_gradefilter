@@ -14,5 +14,17 @@
         <KEY NAME="itemid" TYPE="foreign-unique" FIELDS="itemid" REFTABLE="grade_items" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
+    <TABLE NAME="tool_gradefilter_bonuses_ex" COMMENT="Excluded bonus grades">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="bgid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="bonus grade id"/>
+        <FIELD NAME="reasongradeid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="The grade that caused the bonus to be excluded"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="bgid" TYPE="foreign" FIELDS="bgid" REFTABLE="tool_gradefilter_bonuses" REFFIELDS="id"/>
+        <KEY NAME="reasongradeid" TYPE="foreign-unique" FIELDS="reasongradeid" REFTABLE="grade_grades" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
   </TABLES>
 </XMLDB>
