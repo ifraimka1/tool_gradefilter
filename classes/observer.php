@@ -15,32 +15,28 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin tasks.
+ * Event observer function definition and returns.
  *
  * @package     tool_gradefilter
  * @copyright   2024 Ifraim Solomonov <solomonov@sfedu.ru>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace tool_gradefilter;
+
 defined('MOODLE_INTERNAL') || die();
 
-$tasks = [
-    [
-        'classname' => 'tool_gradefilter\task\check_grades_task',
-        'blocking' => 0,
-        'minute' => '*/5',
-        'hour' => '*',
-        'day' => '*',
-        'dayofweek' => '*',
-        'month' => '*'
-    ],
-    [
-        'classname' => 'tool_gradefilter\task\check_bonuses_task',
-        'blocking' => 0,
-        'minute' => '*/5',
-        'hour' => '*',
-        'day' => '*',
-        'dayofweek' => '*',
-        'month' => '*'
-    ]
-];
+class observer {
+    public static function grade_item_updated(\core\event\grade_item_updated $event) {
+        global $DB;
+
+        $gradeitem = $DB->get_record('grade_items', ['id' => $event->objectid], 'aggregationcoef');
+
+        // Проверяем, является ли оценка бонусной 
+        if ($gradeitem->aggregationcoef == 1) {
+            $DB->insert_record('tool_gradefilter_bonuses', ['itemid' => $gradeitem->id]);
+        } else {
+            $DB->delete_records('tool_gradefilter_bonuses', ['itemid' => $gradeitem->id]);
+        } 
+    }
+}

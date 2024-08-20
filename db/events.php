@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,19 +12,21 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin strings are defined here.
+ * Plugin event observers
  *
  * @package     tool_gradefilter
- * @category    string
- * @copyright   2024 Solomonov Ifraim <solomonov@sfedu.ru>
+ * @copyright   2024 Ifraim Solomonov <solomonov@sfedu.ru>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Grade filter';
-$string['check_grades_task'] = 'Check grades task';
-$string['check_bonuses_task'] = 'Check bonus grades task';
+$observers = [
+    [
+        'eventname'   => '\core\event\grade_item_updated',
+        'callback'    => 'tool_gradefilter\observer::grade_item_updated',
+    ],
+];

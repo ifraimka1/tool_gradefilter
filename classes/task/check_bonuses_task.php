@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This task include/exclude grades, if they're higher/lower than 60%.
+ * This task checks bonus grades and exclude/include them.
  *
  * @package     tool_gradefilter
  * @copyright   2024 Ifraim Solomonov <solomonov@sfedu.ru>
@@ -24,12 +24,14 @@
 
 namespace tool_gradefilter\task;
 
+use stdClass;
+
 defined('MOODLE_INTERNAL') || die();
 
-class check_grades_task extends \core\task\scheduled_task {
+class check_bonuses_task extends \core\task\scheduled_task {
 
     public function get_name() {
-        return get_string('check_grades_task', 'tool_gradefilter');
+        return get_string('check_bonuses_task', 'tool_gradefilter');
     }
 
     public function execute() {

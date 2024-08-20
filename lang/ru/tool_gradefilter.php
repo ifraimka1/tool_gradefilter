@@ -27,3 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Фильтр оценок';
 $string['check_grades_task'] = 'Задача проверки и обновления оценок';
+$string['check_bonuses_task'] = 'Задача проверки и обновления бонусных оценок';
