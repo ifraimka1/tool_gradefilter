@@ -60,9 +60,6 @@ class check_grades_task extends \core\task\scheduled_task {
                 if ($grade->finalgrade < $grade->rawgrademax * 0.6) {
                     // Установим флаг "Не оценивается" (excluded=1)
                     $DB->set_field('grade_grades', 'excluded', $timenow, ['id' => $grade->id]);
-                    if (!$DB->record_exists('tool_gradefilter_excluded', ['gradeid' => $grade->id, 'courseid' => $grade->courseid, 'userid' => $grade->userid])) {
-                        $DB->insert_record('tool_gradefilter_excluded', ['gradeid' => $grade->id, 'courseid' => $grade->courseid, 'userid' => $grade->userid]);
-                    }
                 } else {
                     // Иначе убираем флаг "Не оценивается" (excluded=0)
                     $DB->set_field('grade_grades', 'excluded', 0, ['id' => $grade->id]);

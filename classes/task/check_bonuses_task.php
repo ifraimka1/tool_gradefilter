@@ -63,28 +63,29 @@ class check_bonuses_task extends \core\task\scheduled_task {
                     gi.id,
                     gg.userid,
                     SUM(CASE WHEN gg.excluded > 0 THEN 1 ELSE 0 END) AS ex_count
-                FROM tool_gradefilter_bonuses gfb
-                    LEFT JOIN grade_items gi ON gi.id = gfb.itemid
+                FROM grade_items gi
                     JOIN grade_items gi2 ON gi2.courseid = gi.courseid
                     JOIN grade_grades gg ON gg.itemid = gi2.id
                 WHERE gi2.itemtype NOT LIKE 'course'
+                    AND gi.aggregationcoef = 1
                     AND gi.id != gi2.id
                     AND gi.timecreated >= :restriction
                 GROUP BY gi.id, gg.userid";
         $params = ['restriction' => $restriction];
-        $bonuses = $DB->get_recordset_sql($sql);
+        $bonuses = $DB->get_recordset_sql($sql, $params);
 
         foreach ($bonuses as $bonus) {
             $updateparams = ['itemid' => $bonus->id, 'userid' => $bonus->userid];
-            // Получим текущее значение excluded
+
+            // Получим текущее значение excluded, чтобы не обновлять без необходимости
             $current_excluded = $DB->get_field('grade_grades', 'excluded', $updateparams);
+
             // Если у пользователя нет исключенных оценок, "включаем" бонусные баллы. Иначе - исключаем
             if ($bonus->ex_count == 0 && $current_excluded != 0) {
-                    $DB->set_field('grade_grades', 'excluded', 0, $updateparams);
+                $DB->set_field('grade_grades', 'excluded', 0, $updateparams);
             } else if ($bonus->ex_count != 0 && $current_excluded == 0) {
                 $DB->set_field('grade_grades', 'excluded', $currentDateTime->getTimestamp(), $updateparams);
             }
         }
     }
 }
-
