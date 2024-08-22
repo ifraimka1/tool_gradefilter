@@ -43,7 +43,7 @@ class check_grades_task extends \core\task\scheduled_task {
                        gi.courseid, gi.aggregationcoef
                 FROM {grade_grades} g
                 JOIN {grade_items} gi ON gi.id = g.itemid
-                WHERE g.timemodified >= :lastcheck OR g.excluded > 0";
+                WHERE (g.timemodified >= :lastcheck OR g.excluded > 0) AND gi.itemtype NOT LIKE 'course'";
         $params = ['lastcheck' => $lastcheck];
         $grades = $DB->get_recordset_sql($sql, $params);
 
