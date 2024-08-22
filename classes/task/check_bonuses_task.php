@@ -82,10 +82,18 @@ class check_bonuses_task extends \core\task\scheduled_task {
 
             // Если у пользователя нет исключенных оценок, "включаем" бонусные баллы. Иначе - исключаем
             if ($bonus->ex_count == 0 && $current_excluded != 0) {
+                mtrace('Included');
                 $DB->set_field('grade_grades', 'excluded', 0, $updateparams);
             } else if ($bonus->ex_count != 0 && $current_excluded == 0) {
+                mtrace('Excluded');
                 $DB->set_field('grade_grades', 'excluded', $currentDateTime->getTimestamp(), $updateparams);
             }
+
+            mtrace('$bonus->id = '.$bonus->id);
+            mtrace('$bonus->userid = '.$bonus->userid);
+            mtrace('$bonus->ex_count = '.$bonus->ex_count);
+            mtrace('$updateparams["itemid"] = '.$updateparams['itemid']);
+            mtrace('$updateparams["userid"] = '.$updateparams['userid']);
         }
     }
 }
