@@ -63,9 +63,9 @@ class check_bonuses_task extends \core\task\scheduled_task {
                     gi.id,
                     gg.userid,
                     SUM(CASE WHEN gg.excluded > 0 THEN 1 ELSE 0 END) AS ex_count
-                FROM grade_items gi
-                    JOIN grade_items gi2 ON gi2.courseid = gi.courseid
-                    JOIN grade_grades gg ON gg.itemid = gi2.id
+                FROM {grade_items} gi
+                    JOIN {grade_items} gi2 ON gi2.courseid = gi.courseid
+                    JOIN {grade_grades} gg ON gg.itemid = gi2.id
                 WHERE gi2.itemtype NOT LIKE 'course'
                     AND gi.aggregationcoef = 1
                     AND gi.id != gi2.id
