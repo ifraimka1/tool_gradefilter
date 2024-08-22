@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Event observer function definition and returns.
+ * Plugin tasks.
  *
  * @package     tool_gradefilter
  * @copyright   2024 Ifraim Solomonov <solomonov@sfedu.ru>
@@ -27,6 +27,15 @@ defined('MOODLE_INTERNAL') || die();
 $tasks = [
     [
         'classname' => 'tool_gradefilter\task\check_grades_task',
+        'blocking' => 0,
+        'minute' => '*/5',
+        'hour' => '*',
+        'day' => '*',
+        'dayofweek' => '*',
+        'month' => '*'
+    ],
+    [
+        'classname' => 'tool_gradefilter\task\check_bonuses_task',
         'blocking' => 0,
         'minute' => '*/5',
         'hour' => '*',

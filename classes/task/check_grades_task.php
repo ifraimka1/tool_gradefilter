@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Event observer function definition and returns.
+ * This task include/exclude grades, if they're higher/lower than 60%.
  *
  * @package     tool_gradefilter
  * @copyright   2024 Ifraim Solomonov <solomonov@sfedu.ru>
@@ -39,12 +39,13 @@ class check_grades_task extends \core\task\scheduled_task {
         $lastcheck = $timenow - MINSECS * 10; // Последние 10 минут
 
         // Запрос на получение всех оценок, которые были обновлены за последние 10 минут.
-        $sql = "SELECT g.id, g.finalgrade, g.rawgrademax, g.excluded, g.timemodified
+        $sql = "SELECT g.id, g.userid, g.finalgrade, g.rawgrademax, g.excluded, g.timemodified,
+                       gi.courseid, gi.aggregationcoef
                 FROM {grade_grades} g
                 JOIN {grade_items} gi ON gi.id = g.itemid
                 WHERE g.timemodified >= :lastcheck OR g.excluded > 0";
         $params = ['lastcheck' => $lastcheck];
-        $grades = $DB->get_records_sql($sql, $params);
+        $grades = $DB->get_recordset_sql($sql, $params);
 
         foreach ($grades as $grade) {
             // Проверим, есть ли оценка
@@ -53,7 +54,8 @@ class check_grades_task extends \core\task\scheduled_task {
                 if ($grade->excluded != 0) {
                     $DB->set_field('grade_grades', 'excluded', 0, ['id' => $grade->id]);
                 }
-            } else {
+            // Если это не бонусный балл
+            } else if ($grade->aggregationcoef != 1) {
                 // Если оценка меньше 60%
                 if ($grade->finalgrade < $grade->rawgrademax * 0.6) {
                     // Установим флаг "Не оценивается" (excluded=1)

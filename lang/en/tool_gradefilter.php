@@ -27,3 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Grade filter';
 $string['check_grades_task'] = 'Check grades task';
+$string['check_bonuses_task'] = 'Check bonus grades task';
