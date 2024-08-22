@@ -40,11 +40,10 @@ class check_grades_task extends \core\task\scheduled_task {
 
         // Запрос на получение всех оценок, которые были обновлены за последние 10 минут.
         $sql = "SELECT g.id, g.userid, g.finalgrade, g.rawgrademax, g.excluded, g.timemodified,
-                        gi.courseid, gi.aggregationcoef
+                       gi.courseid, gi.aggregationcoef
                 FROM {grade_grades} g
                 JOIN {grade_items} gi ON gi.id = g.itemid
-                WHERE g.timemodified >= :lastcheck OR g.excluded > 0
-                ORDER BY gi.courseid, g.userid, gi.aggregationcoef";
+                WHERE g.timemodified >= :lastcheck OR g.excluded > 0";
         $params = ['lastcheck' => $lastcheck];
         $grades = $DB->get_recordset_sql($sql, $params);
 
@@ -61,6 +60,9 @@ class check_grades_task extends \core\task\scheduled_task {
                 if ($grade->finalgrade < $grade->rawgrademax * 0.6) {
                     // Установим флаг "Не оценивается" (excluded=1)
                     $DB->set_field('grade_grades', 'excluded', $timenow, ['id' => $grade->id]);
+                    if (!$DB->record_exists('tool_gradefilter_excluded', ['gradeid' => $grade->id, 'courseid' => $grade->courseid, 'userid' => $grade->userid])) {
+                        $DB->insert_record('tool_gradefilter_excluded', ['gradeid' => $grade->id, 'courseid' => $grade->courseid, 'userid' => $grade->userid]);
+                    }
                 } else {
                     // Иначе убираем флаг "Не оценивается" (excluded=0)
                     $DB->set_field('grade_grades', 'excluded', 0, ['id' => $grade->id]);

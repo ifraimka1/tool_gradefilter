@@ -24,7 +24,7 @@
 
 namespace tool_gradefilter\task;
 
-use stdClass;
+use DateTime;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -37,36 +37,52 @@ class check_bonuses_task extends \core\task\scheduled_task {
     public function execute() {
         global $DB;
 
-        $timenow = time();
-        $lastcheck = $timenow - MINSECS * 10; // Последние 10 минут
+        // Узнаем текущую дату и время
+        $currentDateTime = new DateTime();
 
-        // Запрос на получение всех оценок, которые были обновлены за последние 10 минут.
-        $sql = "SELECT g.id, g.userid, g.finalgrade, g.rawgrademax, g.excluded, g.timemodified,
-                        gi.courseid, gi.aggregationcoef
-                FROM {grade_grades} g
-                JOIN {grade_items} gi ON gi.id = g.itemid
-                WHERE g.timemodified >= :lastcheck OR g.excluded > 0
-                ORDER BY gi.courseid, g.userid, gi.aggregationcoef";
-        $params = ['lastcheck' => $lastcheck];
-        $grades = $DB->get_recordset_sql($sql, $params);
+        // Определяем номер текущего месяца
+        $currentMonth = $currentDateTime->format('n'); // 'n' возвращает номер месяца без ведущего нуля
 
-        foreach ($grades as $grade) {
-            // Проверим, есть ли оценка
-            if (is_null($grade->timemodified)) {
-                // Разблокируем задание, оценки по которому нет
-                if ($grade->excluded != 0) {
-                    $DB->set_field('grade_grades', 'excluded', 0, ['id' => $grade->id]);
-                }
-            // Если это не бонусный балл
-            } else if ($grade->aggregationcoef != 1) {
-                // Если оценка меньше 60%
-                if ($grade->finalgrade < $grade->rawgrademax * 0.6) {
-                    // Установим флаг "Не оценивается" (excluded=1)
-                    $DB->set_field('grade_grades', 'excluded', $timenow, ['id' => $grade->id]);
-                } else {
-                    // Иначе убираем флаг "Не оценивается" (excluded=0)
-                    $DB->set_field('grade_grades', 'excluded', 0, ['id' => $grade->id]);
-                }
+        // Проверяем номер месяца и определяем нужную Unix-метку
+        if ($currentMonth < 8) {
+            // Если номер меньше 8, берем первый день первого месяца текущего года
+            $startDateTime = new DateTime($currentDateTime->format('Y') . '-01-01 00:00:00');
+        } else {
+            // Если номер равен или больше 8, берем первый день августа текущего года
+            $startDateTime = new DateTime($currentDateTime->format('Y') . '-08-01 00:00:00');
+        }
+
+        // Получаем Unix-метку
+        $restriction = $startDateTime->getTimestamp();
+
+        /**
+         * Запрос на получение бонусных оценок
+         * Возвращает количество "исключенных" оценок по пользователям
+         */ 
+        $sql = "SELECT 
+                    gi.id,
+                    gg.userid,
+                    SUM(CASE WHEN gg.excluded > 0 THEN 1 ELSE 0 END) AS ex_count
+                FROM tool_gradefilter_bonuses gfb
+                    LEFT JOIN grade_items gi ON gi.id = gfb.itemid
+                    JOIN grade_items gi2 ON gi2.courseid = gi.courseid
+                    JOIN grade_grades gg ON gg.itemid = gi2.id
+                WHERE gi2.itemtype NOT LIKE 'course'
+                    AND gi.id != gi2.id
+                    AND gi.timecreated >= :restriction
+                GROUP BY gi.id, gg.userid";
+        $params = ['restriction' => $restriction];
+        $bonuses = $DB->get_recordset_sql($sql);
+
+        foreach ($bonuses as $bonus) {
+            $updateparams = ['itemid' => $bonus->id, 'userid' => $bonus->userid];
+            // Получим текущее значение excluded
+            $current_excluded = $DB->get_field('grade_grades', 'excluded', $updateparams);
+            // Если у пользователя нет исключенных оценок, "включаем" бонусные баллы. Иначе - исключаем
+            if ($bonus->ex_count == 0 && $current_excluded != 0) {
+                    $DB->set_field('grade_grades', 'excluded', 0, $updateparams);
+            } else if ($bonus->ex_count != 0 && $current_excluded == 0) {
+                $DB->set_field('grade_grades', 'excluded', $currentDateTime->getTimestamp(), $updateparams);
             }
         }
     }

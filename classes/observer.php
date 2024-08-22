@@ -30,7 +30,7 @@ class observer {
     public static function grade_item_updated(\core\event\grade_item_updated $event) {
         global $DB;
 
-        $gradeitem = $DB->get_record('grade_items', ['id' => $event->objectid], 'aggregationcoef');
+        $gradeitem = $DB->get_record('grade_items', ['id' => $event->objectid], 'id, aggregationcoef');
 
         // Проверяем, является ли оценка бонусной 
         if ($gradeitem->aggregationcoef == 1) {
