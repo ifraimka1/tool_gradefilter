@@ -37,7 +37,7 @@ $tasks = [
     [
         'classname' => 'tool_gradefilter\task\check_bonuses_task',
         'blocking' => 0,
-        'minute' => '*/5',
+        'minute' => '1-59/5',
         'hour' => '*',
         'day' => '*',
         'dayofweek' => '*',
