@@ -41,7 +41,7 @@ class check_grades_task extends \core\task\scheduled_task {
 
         // Запрос на получение всех оценок, которые были обновлены за последние 10 минут.
         $sql = "SELECT g.id, g.userid, g.finalgrade, g.rawgrademax, g.excluded, g.timemodified,
-                       gi.courseid, gi.gradepass, gi.aggregationcoef
+                       gi.id AS itemid, gi.courseid, gi.gradepass, gi.aggregationcoef
                 FROM {grade_grades} g
                 JOIN {grade_items} gi ON gi.id = g.itemid
                 WHERE (g.timemodified >= :lastcheck OR g.excluded > 0) AND gi.itemtype NOT LIKE 'course'";
@@ -57,6 +57,11 @@ class check_grades_task extends \core\task\scheduled_task {
                 }
             // Если это не бонусный балл
             } else if ($grade->aggregationcoef != 1) {
+                $correctgradepass = $grade->rawgrademax * 0.6;
+                if ($grade->gradepass != $correctgradepass) {
+                    $grade->gradepass = $correctgradepass;
+                    $DB->set_field('grade_items', 'gradepass', $correctgradepass, ['id' => $grade->itemid]);
+                }
                 // Если оценка меньше 60%
                 if ($grade->finalgrade < $grade->gradepass) {
                     // Установим флаг "Не оценивается" (excluded=1)
