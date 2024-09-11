@@ -60,40 +60,41 @@ class check_bonuses_task extends \core\task\scheduled_task {
          * Возвращает количество "исключенных" оценок по пользователям
          */ 
         $sql = "SELECT 
-                    gi.id,
+                    cgi.courseid,
+                    cgi.id AS coursegradeid,
+                    bgi.id AS bonusid,
                     gg.userid,
                     SUM(CASE WHEN gg.excluded > 0 THEN 1 ELSE 0 END) AS ex_count
-                FROM {grade_items} gi
-                    JOIN {grade_items} gi2 ON gi2.courseid = gi.courseid
-                    JOIN {grade_grades} gg ON gg.itemid = gi2.id
-                WHERE gi2.itemtype NOT LIKE 'course'
-                    AND gi.aggregationcoef = 1
-                    AND gi.id != gi2.id
-                    AND gi.timecreated >= :restriction
-                GROUP BY gi.id, gg.userid";
-        $params = ['restriction' => $restriction];
-        $bonuses = $DB->get_recordset_sql($sql, $params);
+                FROM {grade_items} cgi
+                    JOIN {grade_items} bgi ON bgi.courseid = cgi.courseid
+                    JOIN {grade_items} egi ON egi.courseid = egi.courseid
+                    JOIN {grade_grades} gg ON gg.itemid = egi.id
+                WHERE cgi.itemtype LIKE 'course'
+                    AND bgi.aggregationcoef = 1
+                    AND egi.itemtype NOT LIKE 'course' AND egi.aggregationcoef != 1
+                    AND cgi.id != bgi.id
+                    AND bgi.id != egi.id
+                    AND cgi.timecreated >= :ctc AND bgi.timecreated >= :btc
+                GROUP BY courseid, coursegradeid, bonusid, userid";
+        $params = ['ctc' => $restriction, 'btc' => $restriction];
+        $grades = $DB->get_recordset_sql($sql, $params);
 
-        foreach ($bonuses as $bonus) {
-            $updateparams = ['itemid' => $bonus->id, 'userid' => $bonus->userid];
+        foreach ($grades as $grade) {
+            $bonusparams = ['itemid' => $grade->bonusid, 'userid' => $grade->userid];
+            $coursegradeparams = ['itemid' => $grade->coursegradeid, 'userid' => $grade->userid];
 
-            // Получим текущее значение excluded, чтобы не обновлять без необходимости
-            $current_excluded = $DB->get_field('grade_grades', 'excluded', $updateparams);
+            // Получим текущие значениz в БД, чтобы не обновлять без необходимости
+            $currentexcluded = $DB->get_field('grade_grades', 'excluded', $bonusparams);
+            $currenthidden = $DB->get_field('grade_grades', 'hidden', $coursegradeparams);
 
-            // Если у пользователя нет исключенных оценок, "включаем" бонусные баллы. Иначе - исключаем
-            if ($bonus->ex_count == 0 && $current_excluded != 0) {
-                mtrace('Included');
-                $DB->set_field('grade_grades', 'excluded', 0, $updateparams);
-            } else if ($bonus->ex_count != 0 && $current_excluded == 0) {
-                mtrace('Excluded');
-                $DB->set_field('grade_grades', 'excluded', $currentDateTime->getTimestamp(), $updateparams);
+            // Если у пользователя нет исключенных оценок, "включаем" бонусные баллы и открываем оценку курса. Иначе - исключаем и скрываем соответственно
+            if ($grade->ex_count == 0) {
+                if ($currentexcluded != 0) $DB->set_field('grade_grades', 'excluded', 0, $bonusparams);
+                if ($currenthidden != 0) $DB->set_field('grade_grades', 'hidden', 0, $coursegradeparams);
+            } else if ($grade->ex_count != 0 && $currentexcluded == 0) {
+                if ($currentexcluded == 0) $DB->set_field('grade_grades', 'excluded', time(), $bonusparams);
+                if ($currenthidden == 0) $DB->set_field('grade_grades', 'hidden', 1, $coursegradeparams);
             }
-
-            mtrace('$bonus->id = '.$bonus->id);
-            mtrace('$bonus->userid = '.$bonus->userid);
-            mtrace('$bonus->ex_count = '.$bonus->ex_count);
-            mtrace('$updateparams["itemid"] = '.$updateparams['itemid']);
-            mtrace('$updateparams["userid"] = '.$updateparams['userid']);
         }
     }
 }
