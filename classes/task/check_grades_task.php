@@ -39,14 +39,31 @@ class check_grades_task extends \core\task\scheduled_task {
         if ($lastcheck != 0) {
             $lastcheck -= MINSECS * 2;  // 2 буферные минуты
         }
-        $sql = "SELECT g.id, g.userid, g.finalgrade, g.rawgrademax, g.excluded, g.timemodified,
+
+        $sql = "SELECT id, gradepass, grademax
+                FROM {grade_items}
+                WHERE itemtype NOT LIKE 'course' AND aggregationcoef != 1
+                    AND (timecreated >= :lastcheck1 OR timemodified >= :lastcheck2)";
+        $params = ['lastcheck1' => $lastcheck, 'lastcheck2' => $lastcheck];
+        $grade_items = $DB->get_recordset_sql($sql, $params);
+
+        foreach ($grade_items as $item) {
+            $correctgradepass = $item->grademax * 0.6;
+            $item->gradepass = floatval($item->gradepass);
+            if (abs($item->gradepass - $correctgradepass) >= 0.1) {
+                $item->gradepass = $correctgradepass;
+                $DB->set_field('grade_items', 'gradepass', $correctgradepass, ['id' => $item->id]);                
+                mtrace('Изменил порог оценки. itemid = '.$item->id);
+            }
+        }
+        mtrace('Обработал grade_items');
+
+        $sql = "SELECT g.id, g.userid, g.finalgrade, g.excluded, g.timemodified,
                         gi.id AS itemid, gi.courseid, gi.gradepass
                 FROM {grade_grades} g
                     JOIN {grade_items} gi ON gi.id = g.itemid
                 WHERE gi.itemtype NOT LIKE 'course' AND gi.aggregationcoef != 1
-                    AND (g.timemodified >= :tm OR g.excluded > 0 OR g.timecreated >= :tc)";   
-        $params = ['tm' => $lastcheck, 'tc' => $lastcheck];        
-
+                    AND (g.timemodified >= :lastcheck1 OR g.excluded > 0 OR g.timecreated >= :lastcheck2)";
         $grades = $DB->get_recordset_sql($sql, $params);
 
         foreach ($grades as $grade) {
@@ -54,26 +71,24 @@ class check_grades_task extends \core\task\scheduled_task {
             if (is_null($grade->timemodified)) {
                 // Разблокируем задание, оценки по которому нет
                 if ($grade->excluded != 0) {
+                    mtrace('Разблокировал задание без оценки. $grade->excluded = '.$grade->excluded);
                     $DB->set_field('grade_grades', 'excluded', 0, ['id' => $grade->id]);
                 }
             } else {
-                $correctgradepass = $grade->rawgrademax * 0.6;
-                if ($grade->gradepass != $correctgradepass) {
-                    $grade->gradepass = $correctgradepass;
-                    $DB->set_field('grade_items', 'gradepass', $correctgradepass, ['id' => $grade->itemid]);
-                }
-                
+                              
                 $timenow = time();
                 // Если оценка меньше 60%
                 if ($grade->finalgrade < $grade->gradepass && $grade->excluded == 0) {
                     // Установим флаг "Не оценивается" (excluded=1)
                     $DB->set_field('grade_grades', 'excluded', $timenow, ['id' => $grade->id]);
+                    mtrace('Исключили оценку '.$grade->id);
                 } else if ($grade->finalgrade >= $grade->gradepass && $grade->excluded > 0) {
                     // Иначе убираем флаг "Не оценивается" (excluded=0)
                     $DB->set_field('grade_grades', 'excluded', 0, ['id' => $grade->id]);
+                    mtrace('Включили оценку '.$grade->finalgrade);
                 }
             }
         }
+        mtrace('Обработал grade_grades');
     }
 }
-
