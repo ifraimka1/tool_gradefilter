@@ -34,18 +34,19 @@ class check_grades_task extends \core\task\scheduled_task {
 
     public function execute() {
         global $DB;
-
-        $timenow = time();
-        $lastcheck = $this->get_last_run_time();// Последний запуск
-        if ($lastcheck == 0) $lastcheck -= MINSECS * 2;  // 2 буферные минуты
-
-        // Запрос на получение всех оценок, которые были обновлены за последние 10 минут.
+        
+        $lastcheck = $this->get_last_run_time(); // Последний запуск
+        if ($lastcheck != 0) {
+            $lastcheck -= MINSECS * 2;  // 2 буферные минуты
+        }
         $sql = "SELECT g.id, g.userid, g.finalgrade, g.rawgrademax, g.excluded, g.timemodified,
-                       gi.id AS itemid, gi.courseid, gi.gradepass, gi.aggregationcoef
+                        gi.id AS itemid, gi.courseid, gi.gradepass
                 FROM {grade_grades} g
-                JOIN {grade_items} gi ON gi.id = g.itemid
-                WHERE (g.timemodified >= :lastcheck OR g.excluded > 0) AND gi.itemtype NOT LIKE 'course'";
-        $params = ['lastcheck' => $lastcheck];
+                    JOIN {grade_items} gi ON gi.id = g.itemid
+                WHERE gi.itemtype NOT LIKE 'course' AND gi.aggregationcoef != 1
+                    AND (g.timemodified >= :tm OR g.excluded > 0 OR g.timecreated >= :tc)";   
+        $params = ['tm' => $lastcheck, 'tc' => $lastcheck];        
+
         $grades = $DB->get_recordset_sql($sql, $params);
 
         foreach ($grades as $grade) {
@@ -55,18 +56,19 @@ class check_grades_task extends \core\task\scheduled_task {
                 if ($grade->excluded != 0) {
                     $DB->set_field('grade_grades', 'excluded', 0, ['id' => $grade->id]);
                 }
-            // Если это не бонусный балл
-            } else if ($grade->aggregationcoef != 1) {
+            } else {
                 $correctgradepass = $grade->rawgrademax * 0.6;
                 if ($grade->gradepass != $correctgradepass) {
                     $grade->gradepass = $correctgradepass;
                     $DB->set_field('grade_items', 'gradepass', $correctgradepass, ['id' => $grade->itemid]);
                 }
+                
+                $timenow = time();
                 // Если оценка меньше 60%
-                if ($grade->finalgrade < $grade->gradepass) {
+                if ($grade->finalgrade < $grade->gradepass && $grade->excluded == 0) {
                     // Установим флаг "Не оценивается" (excluded=1)
                     $DB->set_field('grade_grades', 'excluded', $timenow, ['id' => $grade->id]);
-                } else {
+                } else if ($grade->finalgrade >= $grade->gradepass && $grade->excluded > 0) {
                     // Иначе убираем флаг "Не оценивается" (excluded=0)
                     $DB->set_field('grade_grades', 'excluded', 0, ['id' => $grade->id]);
                 }
