@@ -64,18 +64,17 @@ class check_bonuses_task extends \core\task\scheduled_task {
                     cgi.id AS coursegradeid,
                     bgi.id AS bonusid,
                     gg.userid,
-                    SUM(CASE WHEN gg.excluded > 0 THEN 1 ELSE 0 END) AS ex_count
+                    SUM(CASE WHEN (gg.excluded > 0 OR gg.finalgrade IS NULL) THEN 1 ELSE 0 END) AS ex_count
                 FROM {grade_items} cgi
-                    JOIN {grade_items} bgi ON bgi.courseid = cgi.courseid
-                    JOIN {grade_items} egi ON egi.courseid = egi.courseid
-                    JOIN {grade_grades} gg ON gg.itemid = egi.id
-                WHERE cgi.itemtype LIKE 'course'
-                    AND bgi.aggregationcoef = 1
-                    AND egi.itemtype NOT LIKE 'course' AND egi.aggregationcoef != 1
-                    AND cgi.id != bgi.id
-                    AND bgi.id != egi.id
-                    AND cgi.timecreated >= :ctc AND bgi.timecreated >= :btc
-                GROUP BY courseid, coursegradeid, bonusid, userid";
+                JOIN {grade_items} bgi ON bgi.courseid = cgi.courseid
+                JOIN {grade_items} gi ON gi.courseid = cgi.courseid
+                JOIN {grade_grades} gg ON gg.itemid = gi.id
+                WHERE cgi.itemtype = 'course'
+                  AND bgi.aggregationcoef = 1
+                  AND gi.itemtype != 'course'
+                  AND gi.aggregationcoef != 1
+                  AND gg.userid IS NOT NULL
+                GROUP BY cgi.courseid, cgi.id, bgi.id, gg.userid";
         $params = ['ctc' => $restriction, 'btc' => $restriction];
         $grades = $DB->get_recordset_sql($sql, $params);
 
@@ -86,14 +85,30 @@ class check_bonuses_task extends \core\task\scheduled_task {
             // Получим текущие значениz в БД, чтобы не обновлять без необходимости
             $currentexcluded = $DB->get_field('grade_grades', 'excluded', $bonusparams);
             $currenthidden = $DB->get_field('grade_grades', 'hidden', $coursegradeparams);
+            
+            mtrace('courseid = '.$grade->courseid.' | cgid = '.$grade->coursegradeid.' | bonusid = '.$grade->bonusid.' | userid = '.$grade->userid.' | ex_count = '.$grade->ex_count);
+            mtrace('currentexcluded = '.$currentexcluded.' | currenthidden = '.$currenthidden);
 
             // Если у пользователя нет исключенных оценок, "включаем" бонусные баллы и открываем оценку курса. Иначе - исключаем и скрываем соответственно
             if ($grade->ex_count == 0) {
-                if ($currentexcluded != 0) $DB->set_field('grade_grades', 'excluded', 0, $bonusparams);
-                if ($currenthidden != 0) $DB->set_field('grade_grades', 'hidden', 0, $coursegradeparams);
-            } else if ($grade->ex_count != 0 && $currentexcluded == 0) {
-                if ($currentexcluded == 0) $DB->set_field('grade_grades', 'excluded', time(), $bonusparams);
-                if ($currenthidden == 0) $DB->set_field('grade_grades', 'hidden', 1, $coursegradeparams);
+                mtrace('Нет исключенных оценок');
+                if ($currentexcluded != 0) {
+                    $DB->set_field('grade_grades', 'excluded', 0, $bonusparams);
+                    mtrace('Включил бонус. itemid = '.$grade->bonusid);
+                }
+                if ($currenthidden != 0) {
+                    $DB->set_field('grade_grades', 'hidden', 0, $coursegradeparams);
+                    mtrace('Открыл оценку курса. itemid = '.$grade->coursegradeid);
+                }
+            } else if ($grade->ex_count != 0) {
+                if ($currentexcluded == 0) {
+                    $DB->set_field('grade_grades', 'excluded', time(), $bonusparams);
+                    mtrace('Исключил бонус. itemid = '.$grade->bonusid);
+                }
+                if ($currenthidden == 0) {
+                    $DB->set_field('grade_grades', 'hidden', 1, $coursegradeparams);
+                    mtrace('Скрыл оценку курса. itemid = '.$grade->coursegradeid);
+                }
             }
         }
     }
