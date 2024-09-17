@@ -74,6 +74,7 @@ class check_bonuses_task extends \core\task\scheduled_task {
                   AND gi.itemtype != 'course'
                   AND gi.aggregationcoef != 1
                   AND gg.userid IS NOT NULL
+                  AND cgi.timecreated >= :ctc AND bgi.timecreated >= :btc
                 GROUP BY cgi.courseid, cgi.id, bgi.id, gg.userid";
         $params = ['ctc' => $restriction, 'btc' => $restriction];
         $grades = $DB->get_recordset_sql($sql, $params);
