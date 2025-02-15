@@ -65,7 +65,7 @@ function xmldb_tool_gradefilter_upgrade($oldversion)
         $table = new xmldb_table('tool_gradefilter');
 
         // Conditionally launch add field itemid.
-        $field = new xmldb_field('itemid', XMLDB_TYPE_INTEGER, '20', null, XMLDB_NOTNULL, null, 548, 'gradeid');
+        $field = new xmldb_field('itemid', XMLDB_TYPE_INTEGER, '20', null, XMLDB_NOTNULL, null, null, 'gradeid');
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
@@ -84,7 +84,7 @@ function xmldb_tool_gradefilter_upgrade($oldversion)
         $table = new xmldb_table('tool_gradefilter');
 
         // Conditionally launch add field itemid.
-        $field = new xmldb_field('userid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);
+        $field = new xmldb_field('userid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null, 'itemid');
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
