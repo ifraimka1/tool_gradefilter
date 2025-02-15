@@ -78,5 +78,24 @@ function xmldb_tool_gradefilter_upgrade($oldversion)
         upgrade_plugin_savepoint(true, 2025021200, 'tool', 'gradefilter');
     }
 
+    if ($oldversion < 2025021500) {
+
+        // Define field id to be added to tool_gradefilter.
+        $table = new xmldb_table('tool_gradefilter');
+
+        // Conditionally launch add field itemid.
+        $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Adding keys to table tool_gradefilter.
+        $key = new xmldb_key('userid', XMLDB_KEY_FOREIGN, ['userid'], 'user', ['id']);
+        $dbman->add_key($table, $key);
+
+        // Gradefilter savepoint reached.
+        upgrade_plugin_savepoint(true, 2025021500, 'tool', 'gradefilter');
+    }
+
     return true;
 }
