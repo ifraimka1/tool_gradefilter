@@ -18,14 +18,14 @@
  * Plugin version and other meta-data are defined here.
  *
  * @package     tool_gradefilter
- * @copyright   2024 Solomonov Ifraim <solomonov@sfedu.ru>
+ * @copyright   2025 Solomonov Ifraim <solomonov@sfedu.ru>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'tool_gradefilter';
-$plugin->release = '0.1.5';
-$plugin->version = 2024091700;
+$plugin->release = '0.2.1';
+$plugin->version = 2025021200;
 $plugin->requires = 2022112800;
 $plugin->maturity = MATURITY_STABLE;
