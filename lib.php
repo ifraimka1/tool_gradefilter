@@ -25,32 +25,40 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Returns true, if item is regular. Returns false, if item is a bonus, exam or additional item.
+ * Returns code of type of gradeitem:
+ * 0 - regular item;
+ * 1 - bonus/exam.
+ * 2 - course/category;
  * 
- * @param string $gradeid id of grade
+ * @param string $itemname
+ * @param string $itemtype
  * 
- * @return bool
+ * @return int
  */
-function tool_gradefilter_is_regular_item($itemname, $itemtype)
+function tool_gradefilter_get_item_type($itemname, $itemtype)
 {
     // TODO: сделать регулярку настраиваемой
     $pattern = '/добор|экзамен|бонус|bonus|additional|exam/iu';
+    $result = 0; // Regular item.
 
-    if ($itemtype === 'course' || preg_match($pattern, $itemname)) {
-        return false;
+    if ($itemtype === 'course' || $itemtype === 'category') {
+        $result = 2; // Course/category.
+    } else if (preg_match($pattern, $itemname)) {
+        $result = 1; // Bonus/exam.
     }
 
-    return true;
+    return $result;
 }
 
 /**
- * Checks if grade is higher than gradepass and overrides finalgrade
+ * Checks if grade is higher than gradepass and overrides finalgrade.
  * 
- * @param integer $gradeid grade id
+ * @param integer $gradeid
+ * @param integer $itemtype
  * 
  * @return void
  */
-function tool_gradefilter_check_grade($gradeid, $isregularitem)
+function tool_gradefilter_check_grade($gradeid, $itemtype)
 {
     // TODO: добавить возможность игнора оценок/курсов.
     // TODO: внимательнее обрабатывать итоговую оценку за курс.
@@ -61,7 +69,8 @@ function tool_gradefilter_check_grade($gradeid, $isregularitem)
                 items.id AS id,
                 items.gradepass AS pass,
                 grades.rawgrade AS rawgrade,
-                grades.finalgrade AS finalgrade
+                grades.finalgrade AS finalgrade,
+                grades.userid AS userid
             FROM {grade_grades} grades
             JOIN {grade_items} items ON grades.itemid = items.id
             WHERE grades.id = :gradeid";
@@ -71,13 +80,13 @@ function tool_gradefilter_check_grade($gradeid, $isregularitem)
     $newgrade = new stdClass();
     $newgrade->id = $gradeid;
 
-    if ($isregularitem) {
+    if ($itemtype === 0) {
         if ($item->rawgrade < $item->pass) {
             // Исключаем.
             $newgrade->finalgrade = 0;
             $DB->update_record('grade_grades', $newgrade);
             if (!$DB->get_record('tool_gradefilter', ['gradeid' => $gradeid])) {
-                $DB->insert_record('tool_gradefilter', ['gradeid' => $gradeid, 'itemid' => $item->id]);
+                $DB->insert_record('tool_gradefilter', ['gradeid' => $gradeid, 'itemid' => $item->id, 'userid' => $item->userid]);
             }
         } else if ($item->rawgrade != $item->finalgrade) {
             // Включаем.
@@ -87,51 +96,9 @@ function tool_gradefilter_check_grade($gradeid, $isregularitem)
                 $DB->delete_records('tool_gradefilter', ['gradeid' => $gradeid]);
             }
         }
-    } else if ($item->rawgrade != $item->finalgrade) {
-        // TODO: нужно проверять скорее по userid, нежели по gradeid.
-        $exgrade = $DB->get_record('tool_gradefilter', ['gradeid' => $gradeid]);
+    } else if ($itemtype === 1 && $item->rawgrade != $item->finalgrade) {
+        $exgrade = $DB->get_record('tool_gradefilter', ['userid' => $item->userid]);
         $newgrade->finalgrade = $exgrade ?  0 : $item->rawgrade;
         $DB->update_record('grade_grades', $newgrade);
     }
 }
-
-/**
- * Check if gradeitem needs to update
- * 
- * @param int $itemid
- * 
- * @return bool
- */
-// function tool_gradefilter_item_needsupdate($itemid) {
-//     global $DB;
-
-//     $sql = "
-//             SELECT needsupdate
-//             FROM {grade_items} i
-//             WHERE i.id = :itemid";
-//     $params = ['itemid' => $itemid];
-//     $needsupdate = $DB->get_record_sql($sql, $params);
-
-//     if ($needsupdate) {
-//         return true;
-//     }
-
-//     return false;
-// }
-
-// function tool_gradefilter_item_update_pass($itemid) {
-//     global $DB;
-
-//     $sql = "
-//             SELECT gradepass, grademax
-//             FROM {grade_items} i
-//             WHERE i.id = :itemid";
-//     $params = ['itemid' => $itemid];
-//     $needsupdate = $DB->get_record_sql($sql, $params);
-
-//     if ($needsupdate) {
-//         return true;
-//     }
-
-//     return false;
-// }

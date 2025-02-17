@@ -35,7 +35,9 @@ class Observer
 {
     /**
      * Launch tool_gradefilter_check_grade.
+     * 
      * @param object $event event data
+     * 
      * @return void
      */
     public static function tool_gradefilter_handle_user_graded(\core\event\user_graded $event)
@@ -54,11 +56,18 @@ class Observer
         $item = $DB->get_record_sql($sql, $params);
 
         if ($item) {
-            $isregularitem = tool_gradefilter_is_regular_item($item->name, $item->type);
-            tool_gradefilter_check_grade($event->objectid, $isregularitem);
+            $itemtype = tool_gradefilter_get_item_type($item->name, $item->type);
+            tool_gradefilter_check_grade($event->objectid, $itemtype);
         }
     }
 
+    /**
+     * Define correct gradepass.
+     * 
+     * @param \core\event\grade_item_created $event
+     * 
+     * @return void
+     */
     public static function tool_gradefilter_handle_item_created(\core\event\grade_item_created $event)
     {
         if ($event->crud != "c") return;
@@ -79,19 +88,26 @@ class Observer
         $params = ['itemid' => $itemid];
         $item = $DB->get_record_sql($sql, $params);
 
-        $isregularitem = tool_gradefilter_is_regular_item($item->name, $item->type);
+        $itemtype = tool_gradefilter_get_item_type($item->name, $item->type);
 
-        if ($isregularitem) {
+        if ($itemtype === 0) {
             $correctpass = $item->grademax * 0.6;
             $item->pass = floatval($item->pass);
             if (abs($item->pass - $correctpass) >= 0.1) {
                 $DB->set_field('grade_items', 'gradepass', $correctpass, ['id' => $itemid]);
             }
-        } else if ($item->pass != 0) {
+        } else if ($itemtype === 1 && $item->pass != 0) {
             $DB->set_field('grade_items', 'gradepass', 0, ['id' => $itemid]);
         }
     }
 
+    /**
+     * Checks gradepass and change if needed. In that case also checks grades of updated item.
+     * 
+     * @param \core\event\grade_item_updated $event
+     * 
+     * @return void
+     */
     public static function tool_gradefilter_handle_item_updated(\core\event\grade_item_updated $event)
     {
         global $DB;
@@ -110,17 +126,17 @@ class Observer
         $params = ['itemid' => $itemid];
         $item = $DB->get_record_sql($sql, $params);
 
-        $isregularitem = tool_gradefilter_is_regular_item($item->name, $item->type);
+        $itemtype = tool_gradefilter_get_item_type($item->name, $item->type);
         $ispasschanged = false;
 
-        if ($isregularitem) {
+        if ($itemtype === 0) {
             $correctpass = $item->grademax * 0.6;
             $item->pass = floatval($item->pass);
             if ($item->needsupdate || abs($item->pass - $correctpass) >= 0.1) {
                 $DB->set_field('grade_items', 'gradepass', $correctpass, ['id' => $itemid]);
                 $ispasschanged = true;
             }
-        } else if ($item->pass != 0) {
+        } else if ($itemtype === 1 && $item->pass != 0) {
             $DB->set_field('grade_items', 'gradepass', 0, ['id' => $itemid]);
             $ispasschanged = true;
         }
@@ -133,11 +149,18 @@ class Observer
             $grades = $DB->get_records_sql($sql, $params);
 
             foreach ($grades as $grade) {
-                tool_gradefilter_check_grade($grade->id, $isregularitem);
+                tool_gradefilter_check_grade($grade->id, $itemtype);
             }
         }
     }
 
+    /**
+     * Deletes all grades from "tool_gradefilter" table.
+     * 
+     * @param \core\event\grade_item_deleted $event
+     * 
+     * @return void
+     */
     public static function tool_gradefilter_handle_item_deleted(\core\event\grade_item_deleted $event)
     {
         global $DB;
