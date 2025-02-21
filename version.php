@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'tool_gradefilter';
-$plugin->release = '0.2.1';
-$plugin->version = 2025021500;
+$plugin->release = '0.2.2';
+$plugin->version = 2025022100;
 $plugin->requires = 2022112800;
 $plugin->maturity = MATURITY_STABLE;
