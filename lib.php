@@ -27,13 +27,13 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Returns code of type of gradeitem:
  * 0 - regular item;
- * 1 - bonus/exam.
- * 2 - course/category;
+ * 1 - bonus/exam;
+ * 2 - course/category.
  * 
  * @param string $itemname
  * @param string $itemtype
  * 
- * @return int
+ * @return integer type of item.
  */
 function tool_gradefilter_get_item_type($itemname, $itemtype)
 {
@@ -61,13 +61,13 @@ function tool_gradefilter_get_item_type($itemname, $itemtype)
 function tool_gradefilter_check_grade($gradeid, $itemtype)
 {
     // TODO: добавить возможность игнора оценок/курсов.
-    // TODO: внимательнее обрабатывать итоговую оценку за курс.
     global $DB;
 
     $sql = "
             SELECT
                 items.id AS id,
                 items.gradepass AS pass,
+                items.courseid AS courseid,
                 grades.rawgrade AS rawgrade,
                 grades.finalgrade AS finalgrade,
                 grades.userid AS userid
@@ -81,24 +81,102 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
     $newgrade->id = $gradeid;
 
     if ($itemtype === 0) {
-        if ($item->rawgrade < $item->pass) {
+        $gradestatuschanged = false;
+
+        if ($item->rawgrade < $item->pass || $item->rawgrade === null) {
             // Исключаем.
-            $newgrade->finalgrade = 0;
-            $DB->update_record('grade_grades', $newgrade);
-            if (!$DB->get_record('tool_gradefilter', ['gradeid' => $gradeid])) {
-                $DB->insert_record('tool_gradefilter', ['gradeid' => $gradeid, 'itemid' => $item->id, 'userid' => $item->userid]);
+            if ($item->rawgrade !== null || $item->finalgrade !== 0) {
+                $newgrade->finalgrade = 0;
+                $DB->update_record('grade_grades', $newgrade);
             }
-        } else if ($item->rawgrade != $item->finalgrade) {
+            if (!$DB->record_exists('tool_gradefilter', ['gradeid' => $gradeid])) {
+                $DB->insert_record('tool_gradefilter', ['gradeid' => $gradeid, 'itemid' => $item->id, 'userid' => $item->userid]);
+                $gradestatuschanged = true;
+            }
+        } else {
             // Включаем.
-            $newgrade->finalgrade = $item->rawgrade;
-            $DB->update_record('grade_grades', $newgrade);
-            if (!$DB->get_record('tool_gradefilter', ['gradeid' => $gradeid])) {
+            if ($DB->get_record('tool_gradefilter', ['gradeid' => $gradeid])) {
                 $DB->delete_records('tool_gradefilter', ['gradeid' => $gradeid]);
+                $gradestatuschanged = true;
             }
         }
-    } else if ($itemtype === 1 && $item->rawgrade != $item->finalgrade) {
+
+        if ($gradestatuschanged) {
+            tool_gradefilter_check_bonus($item->courseid, $item->userid);
+        }
+    } else if ($itemtype === 1) {
         $exgrade = $DB->get_record('tool_gradefilter', ['userid' => $item->userid]);
-        $newgrade->finalgrade = $exgrade ?  0 : $item->rawgrade;
+        if ($exgrade && $item->finalgrade != 0) {
+            $newgrade->finalgrade = 0;
+            $DB->update_record('grade_grades', $newgrade);
+        } else if (!$exgrade && $item->finalgrade != $item->rawgrade) {
+            $newgrade->finalgrade = $item->rawgrade;
+            $DB->update_record('grade_grades', $newgrade);
+        }
+    }
+}
+
+/**
+ * Checks bonuses on course. If userid is defined, checks specific user.
+ * Disables/enables bonuses based on the existence of excluded grades.
+ * 
+ * @param integer $courseid
+ * @param integer $userid
+ * 
+ * @return void
+ */
+function tool_gradefilter_check_bonus($courseid, $userid = null)
+{
+    global $DB;
+
+    $sql = "SELECT
+                grades.id AS id,
+                grades.rawgrade AS rawgrade,
+                items.itemname AS name,
+                items.itemtype AS type
+            FROM {grade_grades} grades
+            JOIN {grade_items} items ON items.id = grades.itemid
+            WHERE items.courseid = :courseid";            
+    $params = ['courseid' => $courseid];
+
+    if ($userid) {
+        $sql .= " AND grades.userid = :userid";
+        $params['userid'] = $userid;
+    }
+
+    $grades = $DB->get_records_sql($sql, $params);
+
+    $bonusgrades = [];
+
+    foreach ($grades as $grade) {
+        if (tool_gradefilter_get_item_type($grade->name, $grade->type) === 1) {
+            array_push($bonusgrades, $grade);
+        }
+    }
+
+    if (!$bonusgrades) return;
+
+    $sql = "
+        SELECT gf.id
+        FROM {tool_gradefilter} gf
+        JOIN {grade_items} items ON items.id = gf.itemid
+        WHERE items.courseid = :courseid";
+
+    if ($userid !== -1) {
+        $sql .= " AND gf.userid = :userid";
+    }
+
+    $exgrades = $DB->record_exists_sql($sql, $params);
+
+    $newgrade = new stdClass();
+    $newgrade->finalgrade = 0;
+
+    foreach ($bonusgrades as $grade) {
+        if (!$exgrades) {
+            $newgrade->finalgrade = $grade->rawgrade;
+        }
+
+        $newgrade->id = $grade->id;
         $DB->update_record('grade_grades', $newgrade);
     }
 }
