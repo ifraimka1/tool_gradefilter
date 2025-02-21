@@ -24,8 +24,6 @@
 
 namespace tool_gradefilter;
 
-use stdClass;
-
 require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
 
 /**
@@ -80,7 +78,6 @@ class Observer
             SELECT
                 gradepass AS pass,
                 grademax,
-                needsupdate,
                 itemname AS name,
                 itemtype AS type
             FROM {grade_items}
@@ -90,15 +87,7 @@ class Observer
 
         $itemtype = tool_gradefilter_get_item_type($item->name, $item->type);
 
-        if ($itemtype === 0) {
-            $correctpass = $item->grademax * 0.6;
-            $item->pass = floatval($item->pass);
-            if (abs($item->pass - $correctpass) >= 0.1) {
-                $DB->set_field('grade_items', 'gradepass', $correctpass, ['id' => $itemid]);
-            }
-        } else if ($itemtype === 1 && $item->pass != 0) {
-            $DB->set_field('grade_items', 'gradepass', 0, ['id' => $itemid]);
-        }
+        tool_gradefilter_check_grade_pass($itemid, $item->pass, $item->grademax, $itemtype);
     }
 
     /**
@@ -127,23 +116,14 @@ class Observer
         $item = $DB->get_record_sql($sql, $params);
 
         $itemtype = tool_gradefilter_get_item_type($item->name, $item->type);
-        $ispasschanged = false;
 
-        if ($itemtype === 0) {
-            $correctpass = $item->grademax * 0.6;
-            $item->pass = floatval($item->pass);
-            if ($item->needsupdate || abs($item->pass - $correctpass) >= 0.1) {
-                $DB->set_field('grade_items', 'gradepass', $correctpass, ['id' => $itemid]);
-                $ispasschanged = true;
-            }
-        } else if ($itemtype === 1 && $item->pass != 0) {
-            $DB->set_field('grade_items', 'gradepass', 0, ['id' => $itemid]);
-            $DB->delete_records('tool_gradefilter', ['itemid' => $itemid]);
-            $ispasschanged = true;
-            tool_gradefilter_check_bonus($event->courseid);
-        }
+        $ispasschanged = tool_gradefilter_check_grade_pass($itemid, $item->pass, $item->grademax, $itemtype, $item->needsupdate);
 
         if ($ispasschanged) {
+            if ($itemtype === 1) {
+                tool_gradefilter_check_bonus($event->courseid);
+            }
+
             $sql = "SELECT g.id AS id
             FROM {grade_grades} g
             JOIN {grade_items} i ON i.id = g.itemid
