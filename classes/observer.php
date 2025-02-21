@@ -44,7 +44,7 @@ class Observer
     {
         global $DB;
 
-        $itemid = $event->objectid;
+        $itemid = $event->other['itemid'];
 
         $sql = "
             SELECT
@@ -138,7 +138,9 @@ class Observer
             }
         } else if ($itemtype === 1 && $item->pass != 0) {
             $DB->set_field('grade_items', 'gradepass', 0, ['id' => $itemid]);
+            $DB->delete_records('tool_gradefilter', ['itemid' => $itemid]);
             $ispasschanged = true;
+            tool_gradefilter_check_bonus($event->courseid);
         }
 
         if ($ispasschanged) {
@@ -165,5 +167,6 @@ class Observer
     {
         global $DB;
         $DB->delete_records('tool_gradefilter', ['itemid' => $event->objectid]);
+        tool_gradefilter_check_bonus($event->courseid);
     }
 }
