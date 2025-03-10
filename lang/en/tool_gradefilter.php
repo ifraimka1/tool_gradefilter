@@ -26,5 +26,11 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Grade filter';
-$string['check_grades_task'] = 'Check grades task';
-$string['check_bonuses_task'] = 'Check bonus grades task';
+
+$string['settings_main'] = 'Gradefilter settings';
+$string['isenabled'] = 'Enable plugin';
+$string['isenabled_desc'] = 'Enable filtering of grades and grade_items. Disabling will not reset previous settings and grades.';
+$string['ignoreoldgrades'] = 'Ignore old grades';
+$string['ignoreoldgrades_desc'] = 'Enable this option to ignore grades older than a specific date.';
+$string['ignoredate'] = 'Ignore date';
+$string['ignoredate_desc'] = 'Specify the date and time before which grades will be ignored.';
