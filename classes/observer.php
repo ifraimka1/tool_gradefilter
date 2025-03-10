@@ -43,8 +43,6 @@ class Observer
         $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
         if (!$ispluginenabled) return;
 
-
-
         global $DB;
 
         $itemid = $event->other['itemid'];
@@ -90,6 +88,7 @@ class Observer
                 itemtype AS type
             FROM {grade_items}
             WHERE id = :itemid";
+        tool_gradefilter_sql_add_conditions($sql);
         $params = ['itemid' => $itemid];
         $item = $DB->get_record_sql($sql, $params);
 
@@ -123,6 +122,7 @@ class Observer
                 itemtype AS type
             FROM {grade_items}
             WHERE id = :itemid";
+        tool_gradefilter_sql_add_conditions($sql);
         $params = ['itemid' => $itemid];
         $item = $DB->get_record_sql($sql, $params);
 
@@ -139,6 +139,7 @@ class Observer
             FROM {grade_grades} g
             JOIN {grade_items} i ON i.id = g.itemid
             WHERE i.id = :itemid";
+            tool_gradefilter_sql_add_conditions($sql);
             $grades = $DB->get_records_sql($sql, $params);
 
             foreach ($grades as $grade) {
@@ -164,15 +165,16 @@ class Observer
         tool_gradefilter_check_bonus($event->courseid);
     }
 
-    // public static function tool_gradefilter_handle_config_change(\core\event\config_log_created $event) {
-    //     $plugin = $event->other['plugin'] ?? '';
-    //     $paramname = $event->other['name'] ?? '';
-        
-    //     if ($plugin === 'tool_gradefilter' && $paramname === 'isenabled') {
-    //         $newvalue = $event->other['value'];
-    //         if ($newvalue) {
-    //             tool_gradefilter_enable_plugin();
-    //         }
-    //     }
-    // }
+    public static function tool_gradefilter_handle_config_change(\core\event\config_log_created $event)
+    {
+        $plugin = $event->other['plugin'] ?? '';
+        $paramname = $event->other['name'] ?? '';
+
+        if ($plugin === 'tool_gradefilter' && $paramname === 'isenabled') {
+            $newvalue = $event->other['value'];
+            if ($newvalue) {
+                // tool_gradefilter_enable_plugin();
+            }
+        }
+    }
 }
