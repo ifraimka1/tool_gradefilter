@@ -25,18 +25,22 @@
 $observers = [
     [
         'eventname' => '\core\event\user_graded',
-        'callback' => '\tool_gradefilter\observer::tool_gradefilter_handle_user_graded',
+        'callback'  => '\tool_gradefilter\observer::tool_gradefilter_handle_user_graded',
     ],
     [
         'eventname' => '\core\event\grade_item_created',
-        'callback' => '\tool_gradefilter\observer::tool_gradefilter_handle_item_created',
+        'callback'  => '\tool_gradefilter\observer::tool_gradefilter_handle_item_created',
     ],
     [
         'eventname' => '\core\event\grade_item_updated',
-        'callback' => '\tool_gradefilter\observer::tool_gradefilter_handle_item_updated',
+        'callback'  => '\tool_gradefilter\observer::tool_gradefilter_handle_item_updated',
     ],
     [
         'eventname' => '\core\event\grade_item_deleted',
-        'callback' => '\tool_gradefilter\observer::tool_gradefilter_handle_item_deleted',
+        'callback'  => '\tool_gradefilter\observer::tool_gradefilter_handle_item_deleted',
+    ],
+    [
+        'eventname' => '\core\event\config_log_created',
+        'callback'  => '\tool_gradefilter\observer::tool_gradefilter_handle_config_change',
     ],
 ];
