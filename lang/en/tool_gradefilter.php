@@ -33,4 +33,4 @@ $string['isenabled_desc'] = 'Enable filtering of grades and grade_items. Disabli
 $string['ignoreoldgrades'] = 'Ignore old grades';
 $string['ignoreoldgrades_desc'] = 'Enable this option to ignore grades older than a specific date.';
 $string['ignoredate'] = 'Ignore date';
-$string['ignoredate_desc'] = 'Specify the date and time before which grades will be ignored.';
+$string['ignoredate_desc'] = 'Specify the date in Unix format. Grades and items, created before will be ignored.';
