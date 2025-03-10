@@ -162,15 +162,15 @@ class Observer
         tool_gradefilter_check_bonus($event->courseid);
     }
 
-    public static function tool_gradefilter_handle_config_change(\core\event\config_log_created $event) {
-        $plugin = $event->other['plugin'] ?? '';
-        $paramname = $event->other['name'] ?? '';
+    // public static function tool_gradefilter_handle_config_change(\core\event\config_log_created $event) {
+    //     $plugin = $event->other['plugin'] ?? '';
+    //     $paramname = $event->other['name'] ?? '';
         
-        if ($plugin === 'tool_gradefilter' && $paramname === 'isenabled') {
-            $newvalue = $event->other['value'];
-            if ($newvalue) {
-                tool_gradefilter_enable_plugin();
-            }
-        }
-    }
+    //     if ($plugin === 'tool_gradefilter' && $paramname === 'isenabled') {
+    //         $newvalue = $event->other['value'];
+    //         if ($newvalue) {
+    //             tool_gradefilter_enable_plugin();
+    //         }
+    //     }
+    // }
 }
