@@ -21,24 +21,38 @@
  */
 
 
-define(['jquery'], function($) {
+define(['jquery'], function ($) {
     return {
-        init: function() {
+        init: function () {
             const ignoreOldGradesCheckbox = $('input[name="s_tool_gradefilter_ignoreoldgrades"]');
-            const ignoreDateField = $('#admin-ignoredate');
+            const ignoreOldDateField = $('#admin-ignoreolddate');
 
-            if (ignoreOldGradesCheckbox.length && ignoreDateField.length) {
-                const updateVisibility = () => {
+            const ignoreNewGradesCheckbox = $('input[name="s_tool_gradefilter_ignorenewgrades"]');
+            const ignoreNewDateField = $('#admin-ignorenewdate');
+
+            if (ignoreOldGradesCheckbox.length && ignoreOldDateField.length) {
+                const updateVisibilityOld = () => {
                     if (ignoreOldGradesCheckbox.is(':checked')) {
-                        ignoreDateField.show();
+                        ignoreOldDateField.show();
                     } else {
-                        ignoreDateField.hide();
+                        ignoreOldDateField.hide();
                     }
                 };
 
-                updateVisibility();
+                const updateVisibilityNew = () => {
+                    if (ignoreNewGradesCheckbox.is(':checked')) {
+                        ignoreNewDateField.show();
+                    } else {
+                        ignoreNewDateField.hide();
+                    }
+                };
 
-                ignoreOldGradesCheckbox.on('change', updateVisibility);
+
+                updateVisibilityOld();
+                updateVisibilityNew();
+
+                ignoreOldGradesCheckbox.on('change', updateVisibilityOld);
+                ignoreNewGradesCheckbox.on('change', updateVisibilityNew);
             }
         }
     };

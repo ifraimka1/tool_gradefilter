@@ -46,11 +46,28 @@ if ($hassiteconfig) {
             0 // По умолчанию выключено
         ));
 
-        // Настройка ignoredate (дата/время)
+        // Настройка ignoreolddate (unix)
         $settingspage->add(new admin_setting_configtext(
-            'tool_gradefilter/ignoredate',
-            new lang_string('ignoredate', 'tool_gradefilter'),
-            new lang_string('ignoredate_desc', 'tool_gradefilter'),
+            'tool_gradefilter/ignoreolddate',
+            new lang_string('ignoreolddate', 'tool_gradefilter'),
+            new lang_string('ignoreolddate_desc', 'tool_gradefilter'),
+            0,
+            PARAM_INT
+        ));
+
+        // Настройка ignorenewgrades
+        $settingspage->add(new admin_setting_configcheckbox(
+            'tool_gradefilter/ignorenewgrades',
+            new lang_string('ignorenewgrades', 'tool_gradefilter'),
+            new lang_string('ignorenewgrades_desc', 'tool_gradefilter'),
+            0 // По умолчанию выключено
+        ));
+
+        // Настройка ignorenewdate (unix)
+        $settingspage->add(new admin_setting_configtext(
+            'tool_gradefilter/ignorenewdate',
+            new lang_string('ignorenewdate', 'tool_gradefilter'),
+            new lang_string('ignorenewdate_desc', 'tool_gradefilter'),
             0,
             PARAM_INT
         ));
