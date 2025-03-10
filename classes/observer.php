@@ -40,8 +40,10 @@ class Observer
      */
     public static function tool_gradefilter_handle_user_graded(\core\event\user_graded $event)
     {
-        $isPluginEnabled = get_config('tool_gradefilter', 'isenabled');
-        if (!$isPluginEnabled) return;
+        $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
+        if (!$ispluginenabled) return;
+
+
 
         global $DB;
 
@@ -71,8 +73,8 @@ class Observer
      */
     public static function tool_gradefilter_handle_item_created(\core\event\grade_item_created $event)
     {
-        $isPluginEnabled = get_config('tool_gradefilter', 'isenabled');
-        if (!$isPluginEnabled) return;
+        $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
+        if (!$ispluginenabled) return;
 
         if ($event->crud != "c") return;
 
@@ -105,8 +107,8 @@ class Observer
      */
     public static function tool_gradefilter_handle_item_updated(\core\event\grade_item_updated $event)
     {
-        $isPluginEnabled = get_config('tool_gradefilter', 'isenabled');
-        if (!$isPluginEnabled) return;
+        $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
+        if (!$ispluginenabled) return;
 
         global $DB;
 
@@ -154,8 +156,8 @@ class Observer
      */
     public static function tool_gradefilter_handle_item_deleted(\core\event\grade_item_deleted $event)
     {
-        $isPluginEnabled = get_config('tool_gradefilter', 'isenabled');
-        if (!$isPluginEnabled) return;
+        $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
+        if (!$ispluginenabled) return;
 
         global $DB;
         $DB->delete_records('tool_gradefilter', ['itemid' => $event->objectid]);
