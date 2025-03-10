@@ -40,6 +40,9 @@ class Observer
      */
     public static function tool_gradefilter_handle_user_graded(\core\event\user_graded $event)
     {
+        $isPluginEnabled = get_config('tool_gradefilter', 'isenabled');
+        if (!$isPluginEnabled) return;
+
         global $DB;
 
         $itemid = $event->other['itemid'];
@@ -68,6 +71,9 @@ class Observer
      */
     public static function tool_gradefilter_handle_item_created(\core\event\grade_item_created $event)
     {
+        $isPluginEnabled = get_config('tool_gradefilter', 'isenabled');
+        if (!$isPluginEnabled) return;
+
         if ($event->crud != "c") return;
 
         global $DB;
@@ -99,6 +105,9 @@ class Observer
      */
     public static function tool_gradefilter_handle_item_updated(\core\event\grade_item_updated $event)
     {
+        $isPluginEnabled = get_config('tool_gradefilter', 'isenabled');
+        if (!$isPluginEnabled) return;
+
         global $DB;
 
         $itemid = $event->objectid;
@@ -145,8 +154,23 @@ class Observer
      */
     public static function tool_gradefilter_handle_item_deleted(\core\event\grade_item_deleted $event)
     {
+        $isPluginEnabled = get_config('tool_gradefilter', 'isenabled');
+        if (!$isPluginEnabled) return;
+
         global $DB;
         $DB->delete_records('tool_gradefilter', ['itemid' => $event->objectid]);
         tool_gradefilter_check_bonus($event->courseid);
+    }
+
+    public static function tool_gradefilter_handle_config_change(\core\event\config_log_created $event) {
+        $plugin = $event->other['plugin'] ?? '';
+        $paramname = $event->other['name'] ?? '';
+        
+        if ($plugin === 'tool_gradefilter' && $paramname === 'isenabled') {
+            $newvalue = $event->other['value'];
+            if ($newvalue) {
+                tool_gradefilter_enable_plugin();
+            }
+        }
     }
 }
