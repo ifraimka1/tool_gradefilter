@@ -63,8 +63,7 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
     // TODO: добавить возможность игнора оценок/курсов.
     global $DB;
 
-    $sql = "
-            SELECT
+    $sql = "SELECT
                 items.id AS id,
                 items.gradepass AS pass,
                 items.courseid AS courseid,
@@ -74,6 +73,7 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
             FROM {grade_grades} grades
             JOIN {grade_items} items ON grades.itemid = items.id
             WHERE grades.id = :gradeid";
+    tool_gradefilter_sql_add_conditions($sql);
     $params = ['gradeid' => $gradeid];
     $item = $DB->get_record_sql($sql, $params);
 
@@ -137,6 +137,7 @@ function tool_gradefilter_check_bonus($courseid, $userid = null)
             FROM {grade_grades} grades
             JOIN {grade_items} items ON items.id = grades.itemid
             WHERE items.courseid = :courseid";
+    tool_gradefilter_sql_add_conditions($sql);
     $params = ['courseid' => $courseid];
 
     if ($userid) {
@@ -156,11 +157,11 @@ function tool_gradefilter_check_bonus($courseid, $userid = null)
 
     if (!$bonusgrades) return;
 
-    $sql = "
-        SELECT gf.id
-        FROM {tool_gradefilter} gf
-        JOIN {grade_items} items ON items.id = gf.itemid
-        WHERE items.courseid = :courseid";
+    $sql = "SELECT gf.id
+            FROM {tool_gradefilter} gf
+            JOIN {grade_items} items ON items.id = gf.itemid
+            WHERE items.courseid = :courseid";
+    tool_gradefilter_sql_add_conditions($sql);
 
     if ($userid !== -1) {
         $sql .= " AND gf.userid = :userid";
@@ -233,6 +234,7 @@ function tool_gradefilter_enable_plugin()
             FROM {grade_items}
             WHERE i.itemtype NOT LIKE 'course'
               AND i.itemtype NOT LIKE 'category'";
+    tool_gradefilter_sql_add_conditions($sql);
     $items = $DB->get_recordset_sql($sql);
 
     /**
@@ -263,6 +265,7 @@ function tool_gradefilter_enable_plugin()
             FROM {grade_grades} g
             JOIN {grade_items} i ON i.id = g.itemid
             WHERE i.id $sqlin";
+    tool_gradefilter_sql_add_conditions($sql);
     $grades = $DB->get_recordset_sql($sql, $params);
 
     // 4. Проверяем эти оценки. Проверка бонусов включена в check_grade.
@@ -291,5 +294,87 @@ function tool_gradefilter_disable_plugin()
         $newgrade->id = $grade->id;
         $newgrade->finalgrade = $grade->rawgrade;
         $DB->update_record('grade_grades', $newgrade);
+    }
+}
+
+/**
+ * Добавляет в SQL все условия, зависящие от настроек плагина
+ * 
+ * @param string $sql
+ * 
+ * @return void
+ */
+function tool_gradefilter_sql_add_conditions(&$sql)
+{
+    tool_gradefilter_sql_add_ignoredate($sql);
+}
+
+/**
+ * Добавляет в SQL условия игнора старых/новых оценок.
+ * 
+ * @param string $sql - SQL-запрос 
+ * 
+ * @return void
+ */
+function tool_gradefilter_sql_add_ignoredate(&$sql)
+{
+    $conditions = [];
+    $ignoreoldgrades = get_config('tool_gradefilter', 'ignoreoldgrades');
+    $ignorenewgrades = get_config('tool_gradefilter', 'ignorenewgrades');
+
+    if ($ignoreoldgrades) {
+        array_push($conditions, ' > ' . get_config('tool_gradefilter', 'ignoreolddate'));
+    }
+    if ($ignorenewgrades) {
+        array_push($conditions, ' < ' . get_config('tool_gradefilter', 'ignorenewdate'));
+    }
+
+
+    if ($conditions) {
+        $tables = [
+            [
+                'pattern' => '{grade_grades}',
+                'field' => 'timemodified'
+            ],
+            [
+                'pattern' => '{grade_items}',
+                'field' => 'timecreated'
+            ]
+        ];
+
+        foreach ($tables as $table) {
+            $alias = '';
+            $aliasstart = strpos($sql, $table['pattern']);
+
+            if ($aliasstart) {
+                if (strpos($sql, 'JOIN')) {
+                    $aliasstart += strlen($table['pattern']) + 1;
+                    $aliasend = strpos($sql, ' ', $aliasstart);
+                    $alias = substr($sql, $aliasstart, $aliasend - $aliasstart);
+                    $alias = trim($alias).'.';
+                }
+
+                foreach ($conditions as $condition) {
+                    tool_gradefilter_sql_add_keyword($sql);
+                    $sql .= $alias . $table['field'] . $condition;
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Добавляет к SQL-запросу ключевое слово WHERE или AND,
+ * 
+ * @param string $sql - SQL-запрос
+ * 
+ * @return void
+ */
+function tool_gradefilter_sql_add_keyword(&$sql)
+{
+    if (strpos($sql, 'WHERE')) {
+        $sql .= " AND ";
+    } else {
+        $sql .= " WHERE ";
     }
 }
