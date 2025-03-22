@@ -38,3 +38,7 @@ $string['ignorenewgrades'] = 'Ignore new grades';
 $string['ignorenewgrades_desc'] = 'Enable this option to ignore grades newer than a specific date.';
 $string['ignorenewdate'] = 'Ignore date for new grades';
 $string['ignorenewdate_desc'] = 'Specify the date in Unix format. Grades and items, created before will be ignored.';
+$string['ignorecoursesheading'] = 'Ignoring Courses';
+$string['ignorecoursesdesc'] = 'Settings for ignoring courses based on specific criteria.';
+$string['ignorecoursekeywords'] = 'Keywords';
+$string['ignorecoursekeywordsdesc'] = 'Enter keywords to ignore courses. Separate multiple keywords with semicolon.';

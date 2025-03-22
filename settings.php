@@ -71,6 +71,22 @@ if ($hassiteconfig) {
             0,
             PARAM_INT
         ));
+
+        // Раздел "Игнорирование курсов"
+        $settingspage->add(new admin_setting_heading(
+            'tool_gradefilter_ignore_courses_heading',
+            new lang_string('ignorecoursesheading', 'tool_gradefilter'),
+            new lang_string('ignorecoursesdesc', 'tool_gradefilter')
+        ));
+
+        // Текстовое поле для ключевых слов
+        $settingspage->add(new admin_setting_configtextarea(
+            'tool_gradefilter/ignorecoursekeywords',
+            new lang_string('ignorecoursekeywords', 'tool_gradefilter'),
+            new lang_string('ignorecoursekeywordsdesc', 'tool_gradefilter'),
+            'добор',
+            PARAM_TEXT
+        ));
     }
 
     $ADMIN->add('root', $settingspage);

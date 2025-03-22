@@ -47,12 +47,12 @@ class Observer
 
         $itemid = $event->other['itemid'];
 
-        $sql = "
-            SELECT
-                itemname AS name,
-                itemtype AS type
-            FROM {grade_items}
-            WHERE id = :itemid";
+        $sql = "SELECT
+                    itemname AS name,
+                    itemtype AS type
+                FROM {grade_items} i
+                WHERE i.id = :itemid";
+        tool_gradefilter_sql_add_conditions($sql);
         $params = ['itemid' => $itemid];
         $item = $DB->get_record_sql($sql, $params);
 
@@ -80,14 +80,13 @@ class Observer
 
         $itemid = $event->objectid;
 
-        $sql = "
-            SELECT
-                gradepass AS pass,
-                grademax,
-                itemname AS name,
-                itemtype AS type
-            FROM {grade_items}
-            WHERE id = :itemid";
+        $sql = "SELECT
+                    gradepass AS pass,
+                    grademax,
+                    itemname AS name,
+                    itemtype AS type
+                FROM {grade_items} i
+                WHERE i.id = :itemid";
         tool_gradefilter_sql_add_conditions($sql);
         $params = ['itemid' => $itemid];
         $item = $DB->get_record_sql($sql, $params);
@@ -113,15 +112,14 @@ class Observer
 
         $itemid = $event->objectid;
 
-        $sql = "
-            SELECT
-                gradepass AS pass,
-                grademax,
-                needsupdate,
-                itemname AS name,
-                itemtype AS type
-            FROM {grade_items}
-            WHERE id = :itemid";
+        $sql = "SELECT
+                    gradepass AS pass,
+                    grademax,
+                    needsupdate,
+                    itemname AS name,
+                    itemtype AS type
+                FROM {grade_items} i
+                WHERE i.id = :itemid";
         tool_gradefilter_sql_add_conditions($sql);
         $params = ['itemid' => $itemid];
         $item = $DB->get_record_sql($sql, $params);
@@ -136,9 +134,9 @@ class Observer
             }
 
             $sql = "SELECT g.id AS id
-            FROM {grade_grades} g
-            JOIN {grade_items} i ON i.id = g.itemid
-            WHERE i.id = :itemid";
+                    FROM {grade_grades} g
+                    JOIN {grade_items} i ON i.id = g.itemid
+                    WHERE i.id = :itemid";
             tool_gradefilter_sql_add_conditions($sql);
             $grades = $DB->get_records_sql($sql, $params);
 
