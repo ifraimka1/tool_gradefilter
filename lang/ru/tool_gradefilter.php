@@ -42,3 +42,5 @@ $string['ignorecoursesheading'] = 'Исключения для курсов';
 $string['ignorecoursesdesc'] = 'Настройки для исключения курсов из обработки.';
 $string['ignorecoursekeywords'] = 'Ключевые слова';
 $string['ignorecoursekeywordsdesc'] = 'Курсы, в названии которых есть эти ключевые слова, будут исключены из обработки. Используйте точку с запятой ";" для разделения ключевых слов.';
+$string['runplugin'] = 'Запустить';
+$string['resetplugin'] = 'Сбросить';

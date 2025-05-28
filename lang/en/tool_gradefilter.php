@@ -42,3 +42,5 @@ $string['ignorecoursesheading'] = 'Ignoring Courses';
 $string['ignorecoursesdesc'] = 'Settings for ignoring courses based on specific criteria.';
 $string['ignorecoursekeywords'] = 'Keywords';
 $string['ignorecoursekeywordsdesc'] = 'Enter keywords to ignore courses. Separate multiple keywords with semicolon.';
+$string['runplugin'] = 'Run';
+$string['resetplugin'] = 'Disable';

@@ -87,6 +87,20 @@ if ($hassiteconfig) {
             'добор',
             PARAM_TEXT
         ));
+
+        $runbutton = html_writer::tag(
+            'button', 
+            get_string('runplugin', 'tool_gradefilter'), 
+            ['id' => 'runplugin', 'class' => 'btn btn-primary']
+        );
+        $settingspage->add(new admin_setting_description('tool_gradefilter_btn_run', '', $runbutton));
+
+        $resetbutton = html_writer::tag(
+            'button', 
+            get_string('resetplugin', 'tool_gradefilter'), 
+            ['id' => 'resetplugin', 'class' => 'btn btn-secondary']
+        );
+        $settingspage->add(new admin_setting_description('tool_gradefilter_btn_reset', '', $resetbutton));
     }
 
     $ADMIN->add('root', $settingspage);

@@ -140,7 +140,7 @@ function tool_gradefilter_check_bonus($courseid, $userid = null)
     tool_gradefilter_sql_add_conditions($sql);
     $params = ['courseid' => $courseid];
     if ($userid) {
-        $sql .= " AND grades.userid = :userid";
+        $sql .= " AND g.userid = :userid";
         $params['userid'] = $userid;
     }
     $grades = $DB->get_records_sql($sql, $params);
@@ -224,11 +224,11 @@ function tool_gradefilter_enable_plugin()
     global $DB;
     // 1. Получаем все элементы оценок, кроме курсов и категорий
     $sql = "SELECT
-                id,
-                itemname AS name,
-                itemtype AS type,
-                gradepass AS pass,
-                grademax AS max
+                i.id,
+                i.itemname AS name,
+                i.itemtype AS type,
+                i.gradepass AS pass,
+                i.grademax AS max
             FROM {grade_items} i
             WHERE i.itemtype NOT LIKE 'course'
               AND i.itemtype NOT LIKE 'category'";
@@ -286,6 +286,7 @@ function tool_gradefilter_disable_plugin()
             WHERE g.rawgrade != g.finalgrade
               AND g.overridden = 0";
     $grades = $DB->get_recordset_sql($sql);
+    tool_gradefilter_sql_add_conditions($sql);
 
     $newgrade = new stdClass();
     foreach ($grades as $grade) {
