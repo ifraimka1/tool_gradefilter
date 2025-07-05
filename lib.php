@@ -29,10 +29,10 @@ defined('MOODLE_INTERNAL') || die();
  * 0 - обычный (regular) элемент;
  * 1 - бонус/экзамен;
  * 2 - курс/категория.
- * 
+ *
  * @param string $itemname
  * @param string $itemtype
- * 
+ *
  * @return integer type of item.
  */
 function tool_gradefilter_get_item_type($itemname, $itemtype)
@@ -52,10 +52,10 @@ function tool_gradefilter_get_item_type($itemname, $itemtype)
 
 /**
  * Проверяет, набран ли проходной балл. Если нет - зануляет finalgrade.
- * 
+ *
  * @param integer $gradeid
  * @param integer $itemtype
- * 
+ *
  * @return void
  */
 function tool_gradefilter_check_grade($gradeid, $itemtype)
@@ -72,7 +72,8 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
                 g.userid AS userid
             FROM {grade_grades} g
             JOIN {grade_items} i ON g.itemid = i.id
-            WHERE g.id = :gradeid";
+            WHERE g.id = :gradeid
+              AND g.overridden = 0";
     tool_gradefilter_sql_add_conditions($sql);
     $params = ['gradeid' => $gradeid];
     $item = $DB->get_record_sql($sql, $params);
@@ -119,10 +120,10 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
 /**
  * Проверяет бонусы в курсе. Если передан userid, проверит только его.
  * Зануляет/разнуляет бонусы в зависимости от наличия зануленных оценок.
- * 
+ *
  * @param integer $courseid
  * @param integer $userid
- * 
+ *
  * @return void
  */
 function tool_gradefilter_check_bonus($courseid, $userid = null)
@@ -183,13 +184,13 @@ function tool_gradefilter_check_bonus($courseid, $userid = null)
 /**
  * Проверяет корректность проходного балла.
  * Вернет true, если порог изменился, иначе false.
- * 
+ *
  * @param integer $itemid
  * @param integer $pass item.gradepass
  * @param integer $max item.grademax
  * @param integer $itemtype type from get_item_type
  * @param bool $needsupdate
- * 
+ *
  * @return bool
  */
 function tool_gradefilter_check_grade_pass($itemid, $pass, $max, $itemtype, $needsupdate = false)
@@ -216,7 +217,7 @@ function tool_gradefilter_check_grade_pass($itemid, $pass, $max, $itemtype, $nee
 
 /**
  * Устаналивает проходной балл, проверяет все оценки.
- * 
+ *
  * @return void
  */
 function tool_gradefilter_enable_plugin()
@@ -248,10 +249,13 @@ function tool_gradefilter_enable_plugin()
             array_push($regularitems, $item->id);
         }
     }
+    $items->close();
+    if (sizeof($regularitems) === 0) {return;}
 
     // 3. Получаем оценки по обычным заданиям.
     [$sqlin, $params] = $DB->get_in_or_equal($regularitems, SQL_PARAMS_QM);
     unset($regularitems);
+
 
     $sql = "SELECT
                 g.id,
@@ -262,29 +266,38 @@ function tool_gradefilter_enable_plugin()
                 i.courseid
             FROM {grade_grades} g
             JOIN {grade_items} i ON i.id = g.itemid
-            WHERE i.id $sqlin";
+            WHERE g.overridden = 0
+              AND g.locked = 0
+              AND i.id $sqlin";
     tool_gradefilter_sql_add_conditions($sql);
     $grades = $DB->get_recordset_sql($sql, $params);
 
     // 4. Проверяем эти оценки. Проверка бонусов включена в check_grade.
     // TODO: "отвязать" проверку бонусов от проверки оценок.
     foreach ($grades as $grade) {
+        echo "Оценка с id = {$grade->id} обработана<br>";
+        flush();
         tool_gradefilter_check_grade($grade->id, 0);
     }
+    $grades->close();
 }
 
 /**
- * Откатывает все изменения оценок, чистит таблицу tool_gradefilter
- * 
+ * Откатывает все изменения оценок
+ *
  * @return void
  */
 function tool_gradefilter_disable_plugin()
 {
     global $DB;
+
     $sql = "SELECT g.id, g.rawgrade
             FROM {grade_grades} g
-            WHERE g.rawgrade != g.finalgrade
-              AND g.overridden = 0";
+            WHERE g.rawgrade IS NOT NULL
+              AND g.finalgrade IS NOT NULL
+              AND ABS(g.rawgrade - g.finalgrade) > 0.00001
+              AND g.overridden = 0
+              AND g.locked = 0";
     $grades = $DB->get_recordset_sql($sql);
     tool_gradefilter_sql_add_conditions($sql);
 
@@ -293,14 +306,15 @@ function tool_gradefilter_disable_plugin()
         $newgrade->id = $grade->id;
         $newgrade->finalgrade = $grade->rawgrade;
         $DB->update_record('grade_grades', $newgrade);
+        $DB->delete_records('tool_gradefilter', ['gradeid' => $grade->id]);
     }
 }
 
 /**
  * Добавляет в SQL все условия, зависящие от настроек плагина
- * 
+ *
  * @param string $sql
- * 
+ *
  * @return void
  */
 function tool_gradefilter_sql_add_conditions(&$sql)
@@ -311,9 +325,9 @@ function tool_gradefilter_sql_add_conditions(&$sql)
 
 /**
  * Добавляет в SQL условия игнора курсов по ключевым словам.
- * 
- * @param string $sql - SQL-запрос 
- * 
+ *
+ * @param string $sql - SQL-запрос
+ *
  * @return void
  */
 function tool_gradefilter_sql_add_ignorecourse(&$sql)
@@ -340,9 +354,9 @@ function tool_gradefilter_sql_add_ignorecourse(&$sql)
 
 /**
  * Добавляет в SQL условия игнора старых/новых оценок.
- * 
- * @param string $sql - SQL-запрос 
- * 
+ *
+ * @param string $sql - SQL-запрос
+ *
  * @return void
  */
 function tool_gradefilter_sql_add_ignoredate(&$sql)
