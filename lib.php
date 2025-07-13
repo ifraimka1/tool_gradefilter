@@ -133,6 +133,7 @@ function tool_gradefilter_check_bonus($courseid, $userid = null)
     $sql = "SELECT
                 g.id AS id,
                 g.rawgrade AS rawgrade,
+                g.userid AS userid,
                 i.itemname AS name,
                 i.itemtype AS type
             FROM {grade_grades} g
@@ -162,17 +163,19 @@ function tool_gradefilter_check_bonus($courseid, $userid = null)
             WHERE i.courseid = :courseid";
     tool_gradefilter_sql_add_conditions($sql);
 
-    if ($userid !== -1) {
-        $sql .= " AND gf.userid = :userid";
-    }
-
-    $exgrades = $DB->record_exists_sql($sql, $params);
+//    if ($userid) {
+//        $sql .= " AND gf.userid = :userid";
+//    }
 
     $newgrade = new stdClass();
-    $newgrade->finalgrade = 0;
 
     foreach ($bonusgrades as $grade) {
-        if (!$exgrades) {
+        $params['userid'] = $grade->userid;
+        $exgrades = $DB->record_exists_sql($sql, $params);
+
+        if ($exgrades) {
+            $newgrade->finalgrade = 0;
+        } else {
             $newgrade->finalgrade = $grade->rawgrade;
         }
 
