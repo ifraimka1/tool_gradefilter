@@ -57,6 +57,7 @@ function tool_gradefilter_get_item_type($itemname, $itemtype)
  * @param integer $itemtype
  *
  * @return void
+ * @throws dml_exception
  */
 function tool_gradefilter_check_grade($gradeid, $itemtype)
 {
@@ -77,6 +78,8 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
     tool_gradefilter_sql_add_conditions($sql);
     $params = ['gradeid' => $gradeid];
     $item = $DB->get_record_sql($sql, $params);
+
+    if (!$item) return;
 
     $newgrade = new stdClass();
     $newgrade->id = $gradeid;
@@ -106,7 +109,7 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
             tool_gradefilter_check_bonus($item->courseid, $item->userid);
         }
     } else if ($itemtype === 1) {
-        $exgrade = $DB->get_record('tool_gradefilter', ['userid' => $item->userid]);
+        $exgrade = $DB->record_exists('tool_gradefilter', ['userid' => $item->userid]);
         if ($exgrade && $item->finalgrade != 0) {
             $newgrade->finalgrade = 0;
             $DB->update_record('grade_grades', $newgrade);
@@ -119,12 +122,13 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
 
 /**
  * Проверяет бонусы в курсе. Если передан userid, проверит только его.
- * Зануляет/разнуляет бонусы в зависимости от наличия зануленных оценок.
+ * Зануляет/разнуляет бонусы, в зависимости от наличия зануленных оценок.
  *
  * @param integer $courseid
  * @param integer $userid
  *
  * @return void
+ * @throws dml_exception
  */
 function tool_gradefilter_check_bonus($courseid, $userid = null)
 {
@@ -138,7 +142,9 @@ function tool_gradefilter_check_bonus($courseid, $userid = null)
                 i.itemtype AS type
             FROM {grade_grades} g
             JOIN {grade_items} i ON i.id = g.itemid
-            WHERE i.courseid = :courseid";
+            WHERE i.courseid = :courseid
+              AND i.itemtype NOT LIKE 'course'
+              AND i.itemtype NOT LIKE 'category'";
     tool_gradefilter_sql_add_conditions($sql);
     $params = ['courseid' => $courseid];
     if ($userid) {
@@ -160,19 +166,16 @@ function tool_gradefilter_check_bonus($courseid, $userid = null)
     $sql = "SELECT gf.id
             FROM {tool_gradefilter} gf
             JOIN {grade_items} i ON i.id = gf.itemid
-            WHERE i.courseid = :courseid";
+            WHERE i.courseid = :courseid
+            AND gf.userid = :userid";
     tool_gradefilter_sql_add_conditions($sql);
 
-//    if ($userid) {
-//        $sql .= " AND gf.userid = :userid";
-//    }
-
-    $newgrade = new stdClass();
 
     foreach ($bonusgrades as $grade) {
         $params['userid'] = $grade->userid;
         $exgrades = $DB->record_exists_sql($sql, $params);
 
+        $newgrade = new stdClass();
         if ($exgrades) {
             $newgrade->finalgrade = 0;
         } else {
@@ -195,6 +198,7 @@ function tool_gradefilter_check_bonus($courseid, $userid = null)
  * @param bool $needsupdate
  *
  * @return bool
+ * @throws dml_exception
  */
 function tool_gradefilter_check_grade_pass($itemid, $pass, $max, $itemtype, $needsupdate = false)
 {
@@ -219,7 +223,7 @@ function tool_gradefilter_check_grade_pass($itemid, $pass, $max, $itemtype, $nee
 }
 
 /**
- * Устаналивает проходной балл, проверяет все оценки.
+ * Устанавливает проходной балл, проверяет все оценки.
  *
  * @return void
  */
@@ -289,6 +293,7 @@ function tool_gradefilter_enable_plugin()
  * Откатывает все изменения оценок
  *
  * @return void
+ * @throws dml_exception
  */
 function tool_gradefilter_disable_plugin()
 {
@@ -332,6 +337,7 @@ function tool_gradefilter_sql_add_conditions(&$sql)
  * @param string $sql - SQL-запрос
  *
  * @return void
+ * @throws dml_exception
  */
 function tool_gradefilter_sql_add_ignorecourse(&$sql)
 {
@@ -361,6 +367,7 @@ function tool_gradefilter_sql_add_ignorecourse(&$sql)
  * @param string $sql - SQL-запрос
  *
  * @return void
+ * @throws dml_exception
  */
 function tool_gradefilter_sql_add_ignoredate(&$sql)
 {
@@ -374,7 +381,6 @@ function tool_gradefilter_sql_add_ignoredate(&$sql)
     if ($ignorenewgrades) {
         array_push($conditions, ' < ' . get_config('tool_gradefilter', 'ignorenewdate'));
     }
-
 
     if ($conditions) {
         $tables = [

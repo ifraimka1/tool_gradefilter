@@ -1,0 +1,3515 @@
+2025-07-14 05:58:01
+2025-07-14 06:05:23
+2025-07-14 06:05:39
+2025-07-14 06:09:24
+2025-07-14 06:09:24
+2025-07-14 06:09:24
+2025-07-14 06:09:24
+2025-07-14 06:09:24
+2025-07-14 06:09:24
+2025-07-14 06:09:24
+2025-07-14 06:09:24
+2025-07-14 06:09:24
+2025-07-14 06:09:24
+2025-07-14 06:09:24
+2025-07-14 06:09:24
+2025-07-14 06:09:24
+2025-07-14 06:09:24
+2025-07-14 06:09:24
+2025-07-14 06:09:24
+2025-07-14 06:09:24
+2025-07-14 06:09:24
+2025-07-14 06:11:07
+2025-07-14 06:11:07
+2025-07-14 06:11:07
+2025-07-14 06:13:20
+2025-07-14 06:13:28
+2025-07-14 06:13:35
+2025-07-14 06:49:17
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 37
+            [rawgrade] => 
+            [userid] => 3
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:49:17
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 38
+            [rawgrade] => 
+            [userid] => 4
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:49:17
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 39
+            [rawgrade] => 
+            [userid] => 5
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:55:56
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 53
+            [rawgrade] => 
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 46
+            [rawgrade] => 5.00000
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:55:56
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 62
+            [rawgrade] => 
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 55
+            [rawgrade] => 5.00000
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:55:56
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 71
+            [rawgrade] => 
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 64
+            [rawgrade] => 5.00000
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:55:56
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 80
+            [rawgrade] => 
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 73
+            [rawgrade] => 5.00000
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:55:56
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 89
+            [rawgrade] => 
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 82
+            [rawgrade] => 5.00000
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:55:56
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 98
+            [rawgrade] => 
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 91
+            [rawgrade] => 5.00000
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:55:56
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 107
+            [rawgrade] => 
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 100
+            [rawgrade] => 5.00000
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:26
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 37
+            [rawgrade] => 
+            [userid] => 3
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 38
+            [rawgrade] => 
+            [userid] => 4
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [2] => stdClass Object
+        (
+            [id] => 39
+            [rawgrade] => 
+            [userid] => 5
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [3] => stdClass Object
+        (
+            [id] => 53
+            [rawgrade] => 
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [4] => stdClass Object
+        (
+            [id] => 62
+            [rawgrade] => 
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [5] => stdClass Object
+        (
+            [id] => 71
+            [rawgrade] => 
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [6] => stdClass Object
+        (
+            [id] => 80
+            [rawgrade] => 
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [7] => stdClass Object
+        (
+            [id] => 89
+            [rawgrade] => 
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [8] => stdClass Object
+        (
+            [id] => 98
+            [rawgrade] => 
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [9] => stdClass Object
+        (
+            [id] => 107
+            [rawgrade] => 
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [10] => stdClass Object
+        (
+            [id] => 43
+            [rawgrade] => 5.00000
+            [userid] => 3
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [11] => stdClass Object
+        (
+            [id] => 44
+            [rawgrade] => 5.00000
+            [userid] => 4
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [12] => stdClass Object
+        (
+            [id] => 45
+            [rawgrade] => 5.00000
+            [userid] => 5
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [13] => stdClass Object
+        (
+            [id] => 46
+            [rawgrade] => 5.00000
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [14] => stdClass Object
+        (
+            [id] => 55
+            [rawgrade] => 5.00000
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [15] => stdClass Object
+        (
+            [id] => 64
+            [rawgrade] => 5.00000
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [16] => stdClass Object
+        (
+            [id] => 73
+            [rawgrade] => 5.00000
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [17] => stdClass Object
+        (
+            [id] => 82
+            [rawgrade] => 5.00000
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [18] => stdClass Object
+        (
+            [id] => 91
+            [rawgrade] => 5.00000
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [19] => stdClass Object
+        (
+            [id] => 100
+            [rawgrade] => 5.00000
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 53
+            [rawgrade] => 
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 46
+            [rawgrade] => 5.00000
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 62
+            [rawgrade] => 
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 55
+            [rawgrade] => 5.00000
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 71
+            [rawgrade] => 
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 64
+            [rawgrade] => 5.00000
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 80
+            [rawgrade] => 
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 73
+            [rawgrade] => 5.00000
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 89
+            [rawgrade] => 
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 82
+            [rawgrade] => 5.00000
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 98
+            [rawgrade] => 
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 91
+            [rawgrade] => 5.00000
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 107
+            [rawgrade] => 
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 100
+            [rawgrade] => 5.00000
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 53
+            [rawgrade] => 
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 46
+            [rawgrade] => 5.00000
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 62
+            [rawgrade] => 
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 55
+            [rawgrade] => 5.00000
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 71
+            [rawgrade] => 
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 64
+            [rawgrade] => 5.00000
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 80
+            [rawgrade] => 
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 73
+            [rawgrade] => 5.00000
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 89
+            [rawgrade] => 
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 82
+            [rawgrade] => 5.00000
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 98
+            [rawgrade] => 
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 91
+            [rawgrade] => 5.00000
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 107
+            [rawgrade] => 
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 100
+            [rawgrade] => 5.00000
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 53
+            [rawgrade] => 
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 46
+            [rawgrade] => 5.00000
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 62
+            [rawgrade] => 
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 55
+            [rawgrade] => 5.00000
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 71
+            [rawgrade] => 
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 64
+            [rawgrade] => 5.00000
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 80
+            [rawgrade] => 
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 73
+            [rawgrade] => 5.00000
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 89
+            [rawgrade] => 
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 82
+            [rawgrade] => 5.00000
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 98
+            [rawgrade] => 
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 91
+            [rawgrade] => 5.00000
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 107
+            [rawgrade] => 
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 100
+            [rawgrade] => 5.00000
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 53
+            [rawgrade] => 
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 46
+            [rawgrade] => 5.00000
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 62
+            [rawgrade] => 
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 55
+            [rawgrade] => 5.00000
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 71
+            [rawgrade] => 
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 64
+            [rawgrade] => 5.00000
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 80
+            [rawgrade] => 
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 73
+            [rawgrade] => 5.00000
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 89
+            [rawgrade] => 
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 82
+            [rawgrade] => 5.00000
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 98
+            [rawgrade] => 
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 91
+            [rawgrade] => 5.00000
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 107
+            [rawgrade] => 
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 100
+            [rawgrade] => 5.00000
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:27
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 53
+            [rawgrade] => 
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 46
+            [rawgrade] => 5.00000
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:28
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 62
+            [rawgrade] => 
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 55
+            [rawgrade] => 5.00000
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:28
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 71
+            [rawgrade] => 
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 64
+            [rawgrade] => 5.00000
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:28
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 80
+            [rawgrade] => 
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 73
+            [rawgrade] => 5.00000
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:28
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 89
+            [rawgrade] => 
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 82
+            [rawgrade] => 5.00000
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:28
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 98
+            [rawgrade] => 
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 91
+            [rawgrade] => 5.00000
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:56:28
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 107
+            [rawgrade] => 
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 100
+            [rawgrade] => 5.00000
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:57:07
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 37
+            [rawgrade] => 
+            [userid] => 3
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 38
+            [rawgrade] => 
+            [userid] => 4
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [2] => stdClass Object
+        (
+            [id] => 39
+            [rawgrade] => 
+            [userid] => 5
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [3] => stdClass Object
+        (
+            [id] => 53
+            [rawgrade] => 
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [4] => stdClass Object
+        (
+            [id] => 62
+            [rawgrade] => 
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [5] => stdClass Object
+        (
+            [id] => 71
+            [rawgrade] => 
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [6] => stdClass Object
+        (
+            [id] => 80
+            [rawgrade] => 
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [7] => stdClass Object
+        (
+            [id] => 89
+            [rawgrade] => 
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [8] => stdClass Object
+        (
+            [id] => 98
+            [rawgrade] => 
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [9] => stdClass Object
+        (
+            [id] => 107
+            [rawgrade] => 
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [10] => stdClass Object
+        (
+            [id] => 43
+            [rawgrade] => 5.00000
+            [userid] => 3
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [11] => stdClass Object
+        (
+            [id] => 44
+            [rawgrade] => 5.00000
+            [userid] => 4
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [12] => stdClass Object
+        (
+            [id] => 45
+            [rawgrade] => 5.00000
+            [userid] => 5
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [13] => stdClass Object
+        (
+            [id] => 46
+            [rawgrade] => 5.00000
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [14] => stdClass Object
+        (
+            [id] => 55
+            [rawgrade] => 5.00000
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [15] => stdClass Object
+        (
+            [id] => 64
+            [rawgrade] => 5.00000
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [16] => stdClass Object
+        (
+            [id] => 73
+            [rawgrade] => 5.00000
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [17] => stdClass Object
+        (
+            [id] => 82
+            [rawgrade] => 5.00000
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [18] => stdClass Object
+        (
+            [id] => 91
+            [rawgrade] => 5.00000
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [19] => stdClass Object
+        (
+            [id] => 100
+            [rawgrade] => 5.00000
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:57:10
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 37
+            [rawgrade] => 
+            [userid] => 3
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 38
+            [rawgrade] => 
+            [userid] => 4
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [2] => stdClass Object
+        (
+            [id] => 39
+            [rawgrade] => 
+            [userid] => 5
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [3] => stdClass Object
+        (
+            [id] => 53
+            [rawgrade] => 
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [4] => stdClass Object
+        (
+            [id] => 62
+            [rawgrade] => 
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [5] => stdClass Object
+        (
+            [id] => 71
+            [rawgrade] => 
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [6] => stdClass Object
+        (
+            [id] => 80
+            [rawgrade] => 
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [7] => stdClass Object
+        (
+            [id] => 89
+            [rawgrade] => 
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [8] => stdClass Object
+        (
+            [id] => 98
+            [rawgrade] => 
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [9] => stdClass Object
+        (
+            [id] => 107
+            [rawgrade] => 
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [10] => stdClass Object
+        (
+            [id] => 43
+            [rawgrade] => 5.00000
+            [userid] => 3
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [11] => stdClass Object
+        (
+            [id] => 44
+            [rawgrade] => 5.00000
+            [userid] => 4
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [12] => stdClass Object
+        (
+            [id] => 45
+            [rawgrade] => 5.00000
+            [userid] => 5
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [13] => stdClass Object
+        (
+            [id] => 46
+            [rawgrade] => 5.00000
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [14] => stdClass Object
+        (
+            [id] => 55
+            [rawgrade] => 5.00000
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [15] => stdClass Object
+        (
+            [id] => 64
+            [rawgrade] => 5.00000
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [16] => stdClass Object
+        (
+            [id] => 73
+            [rawgrade] => 5.00000
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [17] => stdClass Object
+        (
+            [id] => 82
+            [rawgrade] => 5.00000
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [18] => stdClass Object
+        (
+            [id] => 91
+            [rawgrade] => 5.00000
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [19] => stdClass Object
+        (
+            [id] => 100
+            [rawgrade] => 5.00000
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:57:12
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 37
+            [rawgrade] => 
+            [userid] => 3
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 38
+            [rawgrade] => 
+            [userid] => 4
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [2] => stdClass Object
+        (
+            [id] => 39
+            [rawgrade] => 
+            [userid] => 5
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [3] => stdClass Object
+        (
+            [id] => 53
+            [rawgrade] => 
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [4] => stdClass Object
+        (
+            [id] => 62
+            [rawgrade] => 
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [5] => stdClass Object
+        (
+            [id] => 71
+            [rawgrade] => 
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [6] => stdClass Object
+        (
+            [id] => 80
+            [rawgrade] => 
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [7] => stdClass Object
+        (
+            [id] => 89
+            [rawgrade] => 
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [8] => stdClass Object
+        (
+            [id] => 98
+            [rawgrade] => 
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [9] => stdClass Object
+        (
+            [id] => 107
+            [rawgrade] => 
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [10] => stdClass Object
+        (
+            [id] => 43
+            [rawgrade] => 5.00000
+            [userid] => 3
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [11] => stdClass Object
+        (
+            [id] => 44
+            [rawgrade] => 5.00000
+            [userid] => 4
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [12] => stdClass Object
+        (
+            [id] => 45
+            [rawgrade] => 5.00000
+            [userid] => 5
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [13] => stdClass Object
+        (
+            [id] => 46
+            [rawgrade] => 5.00000
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [14] => stdClass Object
+        (
+            [id] => 55
+            [rawgrade] => 5.00000
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [15] => stdClass Object
+        (
+            [id] => 64
+            [rawgrade] => 5.00000
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [16] => stdClass Object
+        (
+            [id] => 73
+            [rawgrade] => 5.00000
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [17] => stdClass Object
+        (
+            [id] => 82
+            [rawgrade] => 5.00000
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [18] => stdClass Object
+        (
+            [id] => 91
+            [rawgrade] => 5.00000
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [19] => stdClass Object
+        (
+            [id] => 100
+            [rawgrade] => 5.00000
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:57:15
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 37
+            [rawgrade] => 
+            [userid] => 3
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 38
+            [rawgrade] => 
+            [userid] => 4
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [2] => stdClass Object
+        (
+            [id] => 39
+            [rawgrade] => 
+            [userid] => 5
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [3] => stdClass Object
+        (
+            [id] => 53
+            [rawgrade] => 
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [4] => stdClass Object
+        (
+            [id] => 62
+            [rawgrade] => 
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [5] => stdClass Object
+        (
+            [id] => 71
+            [rawgrade] => 
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [6] => stdClass Object
+        (
+            [id] => 80
+            [rawgrade] => 
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [7] => stdClass Object
+        (
+            [id] => 89
+            [rawgrade] => 
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [8] => stdClass Object
+        (
+            [id] => 98
+            [rawgrade] => 
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [9] => stdClass Object
+        (
+            [id] => 107
+            [rawgrade] => 
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [10] => stdClass Object
+        (
+            [id] => 43
+            [rawgrade] => 5.00000
+            [userid] => 3
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [11] => stdClass Object
+        (
+            [id] => 44
+            [rawgrade] => 5.00000
+            [userid] => 4
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [12] => stdClass Object
+        (
+            [id] => 45
+            [rawgrade] => 5.00000
+            [userid] => 5
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [13] => stdClass Object
+        (
+            [id] => 46
+            [rawgrade] => 5.00000
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [14] => stdClass Object
+        (
+            [id] => 55
+            [rawgrade] => 5.00000
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [15] => stdClass Object
+        (
+            [id] => 64
+            [rawgrade] => 5.00000
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [16] => stdClass Object
+        (
+            [id] => 73
+            [rawgrade] => 5.00000
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [17] => stdClass Object
+        (
+            [id] => 82
+            [rawgrade] => 5.00000
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [18] => stdClass Object
+        (
+            [id] => 91
+            [rawgrade] => 5.00000
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [19] => stdClass Object
+        (
+            [id] => 100
+            [rawgrade] => 5.00000
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:58:58
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 37
+            [rawgrade] => 
+            [userid] => 3
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 38
+            [rawgrade] => 
+            [userid] => 4
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [2] => stdClass Object
+        (
+            [id] => 39
+            [rawgrade] => 
+            [userid] => 5
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [3] => stdClass Object
+        (
+            [id] => 53
+            [rawgrade] => 
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [4] => stdClass Object
+        (
+            [id] => 62
+            [rawgrade] => 
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [5] => stdClass Object
+        (
+            [id] => 71
+            [rawgrade] => 
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [6] => stdClass Object
+        (
+            [id] => 80
+            [rawgrade] => 
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [7] => stdClass Object
+        (
+            [id] => 89
+            [rawgrade] => 
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [8] => stdClass Object
+        (
+            [id] => 98
+            [rawgrade] => 
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [9] => stdClass Object
+        (
+            [id] => 107
+            [rawgrade] => 
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [10] => stdClass Object
+        (
+            [id] => 43
+            [rawgrade] => 5.00000
+            [userid] => 3
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [11] => stdClass Object
+        (
+            [id] => 44
+            [rawgrade] => 5.00000
+            [userid] => 4
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [12] => stdClass Object
+        (
+            [id] => 45
+            [rawgrade] => 5.00000
+            [userid] => 5
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [13] => stdClass Object
+        (
+            [id] => 46
+            [rawgrade] => 5.00000
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [14] => stdClass Object
+        (
+            [id] => 55
+            [rawgrade] => 5.00000
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [15] => stdClass Object
+        (
+            [id] => 64
+            [rawgrade] => 5.00000
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [16] => stdClass Object
+        (
+            [id] => 73
+            [rawgrade] => 5.00000
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [17] => stdClass Object
+        (
+            [id] => 82
+            [rawgrade] => 5.00000
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [18] => stdClass Object
+        (
+            [id] => 91
+            [rawgrade] => 5.00000
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [19] => stdClass Object
+        (
+            [id] => 100
+            [rawgrade] => 5.00000
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+2025-07-14 06:59:31
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 43
+            [rawgrade] => 5.00000
+            [userid] => 3
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:59:31
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 44
+            [rawgrade] => 5.00000
+            [userid] => 4
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:59:31
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 45
+            [rawgrade] => 5.00000
+            [userid] => 5
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:59:31
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 46
+            [rawgrade] => 5.00000
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:59:31
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 55
+            [rawgrade] => 5.00000
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:59:31
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 64
+            [rawgrade] => 5.00000
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:59:31
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 73
+            [rawgrade] => 5.00000
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:59:31
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 82
+            [rawgrade] => 5.00000
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:59:31
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 91
+            [rawgrade] => 5.00000
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 06:59:31
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 100
+            [rawgrade] => 5.00000
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 0
+)
+
+2025-07-14 07:00:14
+BONUSGRADES: Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 43
+            [rawgrade] => 5.00000
+            [userid] => 3
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 44
+            [rawgrade] => 5.00000
+            [userid] => 4
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [2] => stdClass Object
+        (
+            [id] => 45
+            [rawgrade] => 5.00000
+            [userid] => 5
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [3] => stdClass Object
+        (
+            [id] => 46
+            [rawgrade] => 5.00000
+            [userid] => 6
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [4] => stdClass Object
+        (
+            [id] => 55
+            [rawgrade] => 5.00000
+            [userid] => 7
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [5] => stdClass Object
+        (
+            [id] => 64
+            [rawgrade] => 5.00000
+            [userid] => 8
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [6] => stdClass Object
+        (
+            [id] => 73
+            [rawgrade] => 5.00000
+            [userid] => 9
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [7] => stdClass Object
+        (
+            [id] => 82
+            [rawgrade] => 5.00000
+            [userid] => 10
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [8] => stdClass Object
+        (
+            [id] => 91
+            [rawgrade] => 5.00000
+            [userid] => 11
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+    [9] => stdClass Object
+        (
+            [id] => 100
+            [rawgrade] => 5.00000
+            [userid] => 12
+            [name] => Бонусный балл
+            [type] => mod
+        )
+
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
+NEWGRADE: stdClass Object
+(
+    [finalgrade] => 5.00000
+)
+
