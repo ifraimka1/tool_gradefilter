@@ -90,7 +90,7 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
         if ($item->overridden == 0 && ($item->rawgrade < $item->pass || $item->rawgrade === null)
             || $item->overridden != 0 && ($item->finalgrade < $item->pass || $item->finalgrade === null)) {
             // Исключаем.
-            if (($item->rawgrade !== null || $item->finalgrade !== 0) && $item->overridden = 0) {
+            if (($item->rawgrade !== null || $item->finalgrade !== 0) && $item->overridden == 0) {
                 $newgrade->finalgrade = 0;
                 $DB->update_record('grade_grades', $newgrade);
             }
