@@ -87,8 +87,8 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
     if ($itemtype === 0) {
         $gradestatuschanged = false;
 
-        if ($item->overridden != 0 && ($item->rawgrade < $item->pass || $item->rawgrade === null)
-            || $item->overridden == 0 && ($item->finalgrade < $item->pass || $item->finalgrade === null)) {
+        if ($item->overridden == 0 && ($item->rawgrade < $item->pass || $item->rawgrade === null)
+            || $item->overridden != 0 && ($item->finalgrade < $item->pass || $item->finalgrade === null)) {
             // Исключаем.
             if (($item->rawgrade !== null || $item->finalgrade !== 0) && $item->overridden = 0) {
                 $newgrade->finalgrade = 0;
@@ -273,8 +273,7 @@ function tool_gradefilter_enable_plugin()
                 i.courseid
             FROM {grade_grades} g
             JOIN {grade_items} i ON i.id = g.itemid
-            WHERE g.overridden = 0
-              AND g.locked = 0
+            WHERE g.locked = 0
               AND i.id $sqlin";
     tool_gradefilter_sql_add_conditions($sql);
     $grades = $DB->get_recordset_sql($sql, $params);

@@ -175,8 +175,8 @@ class Observer
         tool_gradefilter_check_bonus($event->courseid);
     }
 
-//    public static function tool_gradefilter_handle_config_change(\core\event\config_log_created $event)
-//    {
+    public static function tool_gradefilter_handle_config_change(\core\event\config_log_created $event)
+    {
 //        $plugin = $event->other['plugin'] ?? '';
 //        $paramname = $event->other['name'] ?? '';
 //
@@ -186,5 +186,5 @@ class Observer
 //                // tool_gradefilter_enable_plugin();
 //            }
 //        }
-//    }
+    }
 }
