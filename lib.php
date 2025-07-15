@@ -61,7 +61,6 @@ function tool_gradefilter_get_item_type($itemname, $itemtype)
  */
 function tool_gradefilter_check_grade($gradeid, $itemtype)
 {
-    // TODO: добавить возможность игнора оценок/курсов.
     global $DB;
 
     $sql = "SELECT
@@ -70,11 +69,12 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
                 i.courseid AS courseid,
                 g.rawgrade AS rawgrade,
                 g.finalgrade AS finalgrade,
-                g.userid AS userid
+                g.userid AS userid,
+                g.overridden AS overridden
             FROM {grade_grades} g
             JOIN {grade_items} i ON g.itemid = i.id
             WHERE g.id = :gradeid
-              AND g.overridden = 0";
+              AND g.locked = 0";
     tool_gradefilter_sql_add_conditions($sql);
     $params = ['gradeid' => $gradeid];
     $item = $DB->get_record_sql($sql, $params);
@@ -87,9 +87,10 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
     if ($itemtype === 0) {
         $gradestatuschanged = false;
 
-        if ($item->rawgrade < $item->pass || $item->rawgrade === null) {
+        if ($item->overridden != 0 && ($item->rawgrade < $item->pass || $item->rawgrade === null)
+            || $item->overridden == 0 && ($item->finalgrade < $item->pass || $item->finalgrade === null)) {
             // Исключаем.
-            if ($item->rawgrade !== null || $item->finalgrade !== 0) {
+            if (($item->rawgrade !== null || $item->finalgrade !== 0) && $item->overridden = 0) {
                 $newgrade->finalgrade = 0;
                 $DB->update_record('grade_grades', $newgrade);
             }
@@ -263,7 +264,6 @@ function tool_gradefilter_enable_plugin()
     [$sqlin, $params] = $DB->get_in_or_equal($regularitems, SQL_PARAMS_QM);
     unset($regularitems);
 
-
     $sql = "SELECT
                 g.id,
                 g.rawgrade,
@@ -282,9 +282,9 @@ function tool_gradefilter_enable_plugin()
     // 4. Проверяем эти оценки. Проверка бонусов включена в check_grade.
     // TODO: "отвязать" проверку бонусов от проверки оценок.
     foreach ($grades as $grade) {
+        tool_gradefilter_check_grade($grade->id, 0);
         echo "Оценка с id = {$grade->id} обработана<br>";
         flush();
-        tool_gradefilter_check_grade($grade->id, 0);
     }
     $grades->close();
 }
@@ -314,8 +314,9 @@ function tool_gradefilter_disable_plugin()
         $newgrade->id = $grade->id;
         $newgrade->finalgrade = $grade->rawgrade;
         $DB->update_record('grade_grades', $newgrade);
-        $DB->delete_records('tool_gradefilter', ['gradeid' => $grade->id]);
     }
+
+    $DB->delete_records('tool_gradefilter');
 }
 
 /**

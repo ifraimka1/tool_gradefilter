@@ -37,6 +37,7 @@ class Observer
      * @param object $event event data
      *
      * @return void
+     * @throws \dml_exception
      */
     public static function tool_gradefilter_handle_user_graded(\core\event\user_graded $event)
     {
@@ -68,6 +69,7 @@ class Observer
      * @param \core\event\grade_item_created $event
      *
      * @return void
+     * @throws \dml_exception
      */
     public static function tool_gradefilter_handle_item_created(\core\event\grade_item_created $event)
     {
@@ -104,6 +106,7 @@ class Observer
      * @param \core\event\grade_item_updated $event
      *
      * @return void
+     * @throws \dml_exception
      */
     public static function tool_gradefilter_handle_item_updated(\core\event\grade_item_updated $event)
     {
@@ -130,7 +133,6 @@ class Observer
         $params = ['itemid' => $itemid];
         $item = $DB->get_record_sql($sql, $params);
         if (!$item) return;
-
         $itemtype = tool_gradefilter_get_item_type($item->name, $item->type);
 
         $ispasschanged = tool_gradefilter_check_grade_pass($itemid, $item->pass, $item->grademax, $itemtype, $item->needsupdate);
@@ -159,6 +161,7 @@ class Observer
      * @param \core\event\grade_item_deleted $event
      *
      * @return void
+     * @throws \dml_exception
      */
     public static function tool_gradefilter_handle_item_deleted(\core\event\grade_item_deleted $event)
     {
@@ -166,8 +169,6 @@ class Observer
         if (!$ispluginenabled) return;
 
         if ($event->crud != "d") return;
-        echo $event->crud;
-        error_log($event->crud);
 
         global $DB;
         $DB->delete_records('tool_gradefilter', ['itemid' => $event->objectid]);
