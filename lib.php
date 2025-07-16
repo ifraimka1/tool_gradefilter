@@ -70,11 +70,11 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
                 g.rawgrade AS rawgrade,
                 g.finalgrade AS finalgrade,
                 g.userid AS userid,
-                g.overridden AS overridden
+                g.overridden AS overridden,
+                g.locked AS locked
             FROM {grade_grades} g
             JOIN {grade_items} i ON g.itemid = i.id
-            WHERE g.id = :gradeid
-              AND g.locked = 0";
+            WHERE g.id = :gradeid";
     tool_gradefilter_sql_add_conditions($sql);
     $params = ['gradeid' => $gradeid];
     $item = $DB->get_record_sql($sql, $params);
@@ -90,7 +90,7 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
         if ($item->overridden == 0 && ($item->rawgrade < $item->pass || $item->rawgrade === null)
             || $item->overridden != 0 && ($item->finalgrade < $item->pass || $item->finalgrade === null)) {
             // Исключаем.
-            if (($item->rawgrade !== null || $item->finalgrade !== 0) && $item->overridden == 0) {
+            if (($item->rawgrade !== null || $item->finalgrade !== 0) && $item->overridden == 0 && $item->locked == 0) {
                 $newgrade->finalgrade = 0;
                 $DB->update_record('grade_grades', $newgrade);
             }
