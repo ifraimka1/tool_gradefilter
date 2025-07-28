@@ -110,7 +110,7 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
             tool_gradefilter_check_bonus($item->courseid, $item->userid);
         }
     } else if ($itemtype === 1) {
-        $exgrade = $DB->record_exists('tool_gradefilter', ['userid' => $item->userid]);
+        $exgrade = $DB->record_exists('tool_gradefilter', ['userid' => $item->userid, 'courseid' => $item->courseid]);
         if ($exgrade && $item->finalgrade != 0) {
             $newgrade->finalgrade = 0;
             $DB->update_record('grade_grades', $newgrade);
