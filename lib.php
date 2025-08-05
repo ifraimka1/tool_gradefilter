@@ -22,8 +22,6 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Возвращает код типа элемента оценки:
  * 0 - обычный (regular) элемент;
@@ -35,9 +33,8 @@ defined('MOODLE_INTERNAL') || die();
  *
  * @return integer type of item.
  */
-function tool_gradefilter_get_item_type($itemname, $itemtype)
-{
-    // TODO: сделать регулярку настраиваемой
+function tool_gradefilter_get_item_type($itemname, $itemtype) {
+    // TODO: сделать регулярку настраиваемой.
     $pattern = '/добор|экзамен|бонус|bonus|additional|exam/iu';
     $result = 0;
 
@@ -59,8 +56,7 @@ function tool_gradefilter_get_item_type($itemname, $itemtype)
  * @return void
  * @throws dml_exception
  */
-function tool_gradefilter_check_grade($gradeid, $itemtype)
-{
+function tool_gradefilter_check_grade($gradeid, $itemtype) {
     global $DB;
 
     $sql = "SELECT
@@ -79,7 +75,9 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
     $params = ['gradeid' => $gradeid];
     $item = $DB->get_record_sql($sql, $params);
 
-    if (!$item) return;
+    if (!$item) {
+        return;
+    }
 
     $newgrade = new stdClass();
     $newgrade->id = $gradeid;
@@ -89,7 +87,7 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
 
         if ($item->overridden == 0 && ($item->rawgrade < $item->pass || $item->rawgrade === null)
             || $item->overridden != 0 && ($item->finalgrade < $item->pass || $item->finalgrade === null)) {
-            // Исключаем.
+            // Exclude.
             if (($item->rawgrade !== null || $item->finalgrade !== 0) && $item->overridden == 0 && $item->locked == 0) {
                 $newgrade->finalgrade = 0;
                 $DB->update_record('grade_grades', $newgrade);
@@ -99,7 +97,7 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
                 $gradestatuschanged = true;
             }
         } else {
-            // Включаем.
+            // Include.
             if ($DB->get_record('tool_gradefilter', ['gradeid' => $gradeid])) {
                 $DB->delete_records('tool_gradefilter', ['gradeid' => $gradeid]);
                 $gradestatuschanged = true;
@@ -131,8 +129,7 @@ function tool_gradefilter_check_grade($gradeid, $itemtype)
  * @return void
  * @throws dml_exception
  */
-function tool_gradefilter_check_bonus($courseid, $userid = null)
-{
+function tool_gradefilter_check_bonus($courseid, $userid = null) {
     global $DB;
 
     $sql = "SELECT
@@ -162,7 +159,9 @@ function tool_gradefilter_check_bonus($courseid, $userid = null)
         }
     }
 
-    if (!$bonusgrades) return;
+    if (!$bonusgrades) {
+        return;
+    }
 
     $sql = "SELECT gf.id
             FROM {tool_gradefilter} gf
@@ -170,7 +169,6 @@ function tool_gradefilter_check_bonus($courseid, $userid = null)
             WHERE i.courseid = :courseid
             AND gf.userid = :userid";
     tool_gradefilter_sql_add_conditions($sql);
-
 
     foreach ($bonusgrades as $grade) {
         $params['userid'] = $grade->userid;
@@ -201,8 +199,7 @@ function tool_gradefilter_check_bonus($courseid, $userid = null)
  * @return bool
  * @throws dml_exception
  */
-function tool_gradefilter_check_grade_pass($itemid, $pass, $max, $itemtype, $needsupdate = false)
-{
+function tool_gradefilter_check_grade_pass($itemid, $pass, $max, $itemtype, $needsupdate = false) {
     global $DB;
 
     $ispasschanged = false;
@@ -228,8 +225,7 @@ function tool_gradefilter_check_grade_pass($itemid, $pass, $max, $itemtype, $nee
  *
  * @return void
  */
-function tool_gradefilter_enable_plugin()
-{
+function tool_gradefilter_enable_plugin() {
     global $DB;
     // 1. Получаем все элементы оценок, кроме курсов и категорий
     $sql = "SELECT
@@ -244,7 +240,7 @@ function tool_gradefilter_enable_plugin()
     tool_gradefilter_sql_add_conditions($sql);
     $items = $DB->get_recordset_sql($sql);
 
-    /**
+    /*
      * 2. Находим обычные (regular) элементы,
      * записываем в отдельный массив,
      * проверяем их порог.
@@ -258,7 +254,9 @@ function tool_gradefilter_enable_plugin()
         }
     }
     $items->close();
-    if (sizeof($regularitems) === 0) {return;}
+    if (count($regularitems) === 0) {
+        return;
+    }
 
     // 3. Получаем оценки по обычным заданиям.
     [$sqlin, $params] = $DB->get_in_or_equal($regularitems, SQL_PARAMS_QM);
@@ -294,8 +292,7 @@ function tool_gradefilter_enable_plugin()
  * @return void
  * @throws dml_exception
  */
-function tool_gradefilter_disable_plugin()
-{
+function tool_gradefilter_disable_plugin() {
     global $DB;
 
     $sql = "SELECT g.id, g.rawgrade
@@ -325,8 +322,7 @@ function tool_gradefilter_disable_plugin()
  *
  * @return void
  */
-function tool_gradefilter_sql_add_conditions(&$sql)
-{
+function tool_gradefilter_sql_add_conditions(&$sql) {
     tool_gradefilter_sql_add_ignoredate($sql);
     tool_gradefilter_sql_add_ignorecourse($sql);
 }
@@ -339,11 +335,12 @@ function tool_gradefilter_sql_add_conditions(&$sql)
  * @return void
  * @throws dml_exception
  */
-function tool_gradefilter_sql_add_ignorecourse(&$sql)
-{
+function tool_gradefilter_sql_add_ignorecourse(&$sql) {
     $keywords = get_config('tool_gradefilter', 'ignorecoursekeywords');
 
-    if (!$keywords) return;
+    if (!$keywords) {
+        return;
+    }
 
     $formattedkeywords = array_map(function ($keyword) {
         return "c.fullname NOT LIKE '%" . trim($keyword) . "%'";
@@ -369,8 +366,7 @@ function tool_gradefilter_sql_add_ignorecourse(&$sql)
  * @return void
  * @throws dml_exception
  */
-function tool_gradefilter_sql_add_ignoredate(&$sql)
-{
+function tool_gradefilter_sql_add_ignoredate(&$sql) {
     $conditions = [];
     $ignoreoldgrades = get_config('tool_gradefilter', 'ignoreoldgrades');
     $ignorenewgrades = get_config('tool_gradefilter', 'ignorenewgrades');
@@ -387,13 +383,13 @@ function tool_gradefilter_sql_add_ignoredate(&$sql)
             [
                 'pattern' => '{grade_grades}',
                 'field' => 'timemodified',
-                'alias' => 'g.'
+                'alias' => 'g.',
             ],
             [
                 'pattern' => '{grade_items}',
                 'field' => 'timecreated',
-                'alias' => 'i.'
-            ]
+                'alias' => 'i.',
+            ],
         ];
 
         foreach ($tables as $table) {

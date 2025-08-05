@@ -28,6 +28,5 @@
  */
 function xmldb_tool_gradefilter_uninstall() {
     tool_gradefilter_disable_plugin();
-    
     return true;
 }

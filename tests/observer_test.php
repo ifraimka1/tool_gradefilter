@@ -14,6 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Unit tests for observer.
+ *
+ * @package     tool_gradefilter
+ * @copyright   2025 Solomonov Ifraim <solomonov@sfedu.ru>
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
@@ -36,12 +44,12 @@ class tool_gradefilter_observer_testcase extends advanced_testcase {
         $DB->insert_record('grade_items', [
             'id' => 1,
             'itemname' => 'Regular Assignment',
-            'itemtype' => 'mod'
+            'itemtype' => 'mod',
         ]);
 
         $event = \core\event\user_graded::create([
             'objectid' => 1,
-            'other' => ['itemid' => 1]
+            'other' => ['itemid' => 1],
         ]);
 
         // Вызов метода
@@ -65,12 +73,12 @@ class tool_gradefilter_observer_testcase extends advanced_testcase {
             'itemname' => 'Regular Assignment',
             'itemtype' => 'mod',
             'gradepass' => 50,
-            'grademax' => 100
+            'grademax' => 100,
         ]);
 
         $event = \core\event\grade_item_created::create([
             'objectid' => 1,
-            'crud' => 'c'
+            'crud' => 'c',
         ]);
 
         // Вызов метода
@@ -91,11 +99,11 @@ class tool_gradefilter_observer_testcase extends advanced_testcase {
         set_config('isenabled', 1, 'tool_gradefilter');
 
         $DB->insert_record('tool_gradefilter', [
-            'itemid' => 1
+            'itemid' => 1,
         ]);
 
         $event = \core\event\grade_item_deleted::create([
-            'objectid' => 1
+            'objectid' => 1,
         ]);
 
         // Вызов метода

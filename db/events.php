@@ -22,6 +22,8 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 $observers = [
     [
         'eventname' => '\core\event\user_graded',
@@ -38,9 +40,5 @@ $observers = [
     [
         'eventname' => '\core\event\grade_item_deleted',
         'callback'  => '\tool_gradefilter\observer::tool_gradefilter_handle_item_deleted',
-    ],
-    [
-        'eventname' => '\core\event\config_log_created',
-        'callback'  => '\tool_gradefilter\observer::tool_gradefilter_handle_config_change',
     ],
 ];

@@ -24,13 +24,10 @@
 
 namespace tool_gradefilter;
 
-require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
-
 /**
  * Event observer class define.
  */
-class Observer
-{
+class Observer {
     /**
      * Launch tool_gradefilter_check_grade.
      *
@@ -39,10 +36,13 @@ class Observer
      * @return void
      * @throws \dml_exception
      */
-    public static function tool_gradefilter_handle_user_graded(\core\event\user_graded $event)
-    {
+    public static function tool_gradefilter_handle_user_graded(\core\event\user_graded $event) {
+        require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
+
         $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
-        if (!$ispluginenabled) return;
+        if (!$ispluginenabled) {
+            return;
+        }
 
         global $DB;
 
@@ -71,12 +71,17 @@ class Observer
      * @return void
      * @throws \dml_exception
      */
-    public static function tool_gradefilter_handle_item_created(\core\event\grade_item_created $event)
-    {
-        $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
-        if (!$ispluginenabled) return;
+    public static function tool_gradefilter_handle_item_created(\core\event\grade_item_created $event) {
+        require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
 
-        if ($event->crud != "c") return;
+        $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
+        if (!$ispluginenabled) {
+            return;
+        }
+
+        if ($event->crud != "c") {
+            return;
+        }
 
         global $DB;
 
@@ -93,7 +98,9 @@ class Observer
         $params = ['itemid' => $itemid];
         $item = $DB->get_record_sql($sql, $params);
 
-        if (!$item) return;
+        if (!$item) {
+            return;
+        }
 
         $itemtype = tool_gradefilter_get_item_type($item->name, $item->type);
 
@@ -108,14 +115,17 @@ class Observer
      * @return void
      * @throws \dml_exception
      */
-    public static function tool_gradefilter_handle_item_updated(\core\event\grade_item_updated $event)
-    {
-        $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
-        if (!$ispluginenabled) return;
+    public static function tool_gradefilter_handle_item_updated(\core\event\grade_item_updated $event) {
+        require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
 
-        if ($event->crud != "u") return;
-        echo $event->crud;
-        error_log($event->crud);
+        $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
+        if (!$ispluginenabled) {
+            return;
+        }
+
+        if ($event->crud != "u") {
+            return;
+        }
 
         global $DB;
 
@@ -132,7 +142,9 @@ class Observer
         tool_gradefilter_sql_add_conditions($sql);
         $params = ['itemid' => $itemid];
         $item = $DB->get_record_sql($sql, $params);
-        if (!$item) return;
+        if (!$item) {
+            return;
+        }
         $itemtype = tool_gradefilter_get_item_type($item->name, $item->type);
 
         $ispasschanged = tool_gradefilter_check_grade_pass($itemid, $item->pass, $item->grademax, $itemtype, $item->needsupdate);
@@ -163,28 +175,20 @@ class Observer
      * @return void
      * @throws \dml_exception
      */
-    public static function tool_gradefilter_handle_item_deleted(\core\event\grade_item_deleted $event)
-    {
-        $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
-        if (!$ispluginenabled) return;
+    public static function tool_gradefilter_handle_item_deleted(\core\event\grade_item_deleted $event) {
+        require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
 
-        if ($event->crud != "d") return;
+        $ispluginenabled = get_config('tool_gradefilter', 'isenabled');d
+        if (!$ispluginenabled) {
+            return;
+        }
+
+        if ($event->crud != "d") {
+            return;
+        }
 
         global $DB;
         $DB->delete_records('tool_gradefilter', ['itemid' => $event->objectid]);
         tool_gradefilter_check_bonus($event->courseid);
-    }
-
-    public static function tool_gradefilter_handle_config_change(\core\event\config_log_created $event)
-    {
-//        $plugin = $event->other['plugin'] ?? '';
-//        $paramname = $event->other['name'] ?? '';
-//
-//        if ($plugin === 'tool_gradefilter' && $paramname === 'isenabled') {
-//            $newvalue = $event->other['value'];
-//            if ($newvalue) {
-//                // tool_gradefilter_enable_plugin();
-//            }
-//        }
     }
 }

@@ -14,6 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Unit tests for adding sql conditions functions.
+ *
+ * @package     tool_gradefilter
+ * @copyright   2025 Solomonov Ifraim <solomonov@sfedu.ru>
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
@@ -24,13 +32,11 @@ require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
  * @group tool_gradefilter
  * @runInSeparateProcess
  */
-class tool_gradefilter_lib_sql_testcase extends advanced_testcase
-{
+class tool_gradefilter_lib_sql_testcase extends advanced_testcase {
     /**
      * Тестирование tool_gradefilter_get_item_type
      */
-    public function test_tool_gradefilter_get_item_type()
-    {
+    public function test_tool_gradefilter_get_item_type() {
         // Тест 1: Обычный элемент
         $this->assertEquals(0, tool_gradefilter_get_item_type("Assignment", "mod"));
 
@@ -56,7 +62,7 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase
             'courseid' => $course->id,
             'gradepass' => 50,
             'grademax' => 100,
-            'itemtype' => 'mod'
+            'itemtype' => 'mod',
         ]);
 
         // Тест 1: Корректный проходной балл
@@ -66,8 +72,8 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase
         $this->assertTrue(tool_gradefilter_check_grade_pass($gradeitem->id, 40, 100, 0));
 
         // Проверка обновления в базе данных
-        $updatedItem = $DB->get_record('grade_items', ['id' => $gradeitem->id]);
-        $this->assertEquals(60, $updatedItem->gradepass); // Проверяем, что gradepass обновлен
+        $updateditem = $DB->get_record('grade_items', ['id' => $gradeitem->id]);
+        $this->assertEquals(60, $updateditem->gradepass); // Проверяем, что gradepass обновлен
     }
 
     /**
@@ -84,37 +90,36 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase
             'itemname' => 'Regular Assignment',
             'itemtype' => 'mod',
             'gradepass' => 50,
-            'grademax' => 100
+            'grademax' => 100,
         ]);
 
         tool_gradefilter_enable_plugin();
 
-        $updatedItem = $DB->get_record('grade_items', ['id' => $gradeitem->id]);
-        $this->assertEquals(60, $updatedItem->gradepass);
+        $updateditem = $DB->get_record('grade_items', ['id' => $gradeitem->id]);
+        $this->assertEquals(60, $updateditem->gradepass);
     }
 
     /**
      * Тестирование tool_gradefilter_disable_plugin
      */
-    public function test_tool_gradefilter_disable_plugin()
-    {
+    public function test_tool_gradefilter_disable_plugin() {
         global $DB;
 
         $this->resetAfterTest(true);
-        
+
         $course = $this->getDataGenerator()->create_course();
         $gradeitem = $this->getDataGenerator()->create_grade_item(['courseid' => $course->id]);
         $grade = $this->getDataGenerator()->create_grade_grade([
             'itemid' => $gradeitem->id,
             'rawgrade' => 80,
             'finalgrade' => 0,
-            'overridden' => 0
+            'overridden' => 0,
         ]);
 
         tool_gradefilter_disable_plugin();
 
-        $updatedGrade = $DB->get_record('grade_grades', ['id' => $grade->id]);
-        $this->assertEquals(80, $updatedGrade->finalgrade);
+        $updatedgrade = $DB->get_record('grade_grades', ['id' => $grade->id]);
+        $this->assertEquals(80, $updatedgrade->finalgrade);
     }
 
     /**
@@ -122,8 +127,7 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase
      * conditions   - none
      * @group tool_gradefilter_ignore_time
      */
-    public function test_simple()
-    {
+    public function test_simple() {
         $this->resetAfterTest();
         set_config('ignoreoldgrades', 0, 'tool_gradefilter');
         set_config('ignorenewgrades', 0, 'tool_gradefilter');
@@ -139,8 +143,7 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase
      * conditions   - old
      * @group tool_gradefilter_ignore_time
      */
-    public function test_grades_old()
-    {
+    public function test_grades_old() {
         $this->resetAfterTest();
         set_config('ignoreoldgrades', 1, 'tool_gradefilter');
         set_config('ignoreolddate', 1672531200, 'tool_gradefilter');
@@ -160,8 +163,7 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase
      * conditions   - old
      * @group tool_gradefilter_ignore_time
      */
-    public function test_items_old()
-    {
+    public function test_items_old() {
         $this->resetAfterTest();
         set_config('ignoreoldgrades', 1, 'tool_gradefilter');
         set_config('ignoreolddate', 1672531200, 'tool_gradefilter');
@@ -178,8 +180,7 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase
      * conditions   - new
      * @group tool_gradefilter_ignore_time
      */
-    public function test_new()
-    {
+    public function test_new() {
         $this->resetAfterTest();
         set_config('ignoreoldgrades', 0, 'tool_gradefilter');
         set_config('ignorenewgrades', 1, 'tool_gradefilter');
@@ -196,8 +197,7 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase
      * conditions   - old, new
      * @group tool_gradefilter_ignore_time
      */
-    public function test_oldnew()
-    {
+    public function test_oldnew() {
         $this->resetAfterTest();
         set_config('ignoreoldgrades', 1, 'tool_gradefilter');
         set_config('ignoreolddate', 1672531200, 'tool_gradefilter');
@@ -215,8 +215,7 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase
      * conditions   - oldnew
      * @group tool_gradefilter_ignore_time
      */
-    public function test_join_oldnew()
-    {
+    public function test_join_oldnew() {
         $this->resetAfterTest();
         set_config('ignoreoldgrades', 1, 'tool_gradefilter');
         set_config('ignoreolddate', 1672531200, 'tool_gradefilter');
@@ -242,8 +241,7 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase
      * conditions   - keyword
      * @group tool_gradefilter_ignore_course
      */
-    public function test_courseignore_notable()
-    {
+    public function test_courseignore_notable() {
         $this->resetAfterTest();
         set_config('ignoreoldgrades', 0, 'tool_gradefilter');
         set_config('ignorenewgrades', 0, 'tool_gradefilter');
@@ -266,8 +264,7 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase
      * conditions   - keywords
      * @group tool_gradefilter_ignore_course
      */
-    public function test_courseignores_notable()
-    {
+    public function test_courseignores_notable() {
         $this->resetAfterTest();
         set_config('ignoreoldgrades', 0, 'tool_gradefilter');
         set_config('ignorenewgrades', 0, 'tool_gradefilter');
@@ -290,8 +287,7 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase
      * conditions   - keywords
      * @group tool_gradefilter_ignore_course
      */
-    public function test_courseignores_table()
-    {
+    public function test_courseignores_table() {
         $this->resetAfterTest();
         set_config('ignoreoldgrades', 0, 'tool_gradefilter');
         set_config('ignorenewgrades', 0, 'tool_gradefilter');
@@ -317,8 +313,7 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase
      * @group tool_gradefilter_ignore_course
      * @group tool_gradefilter_ignore_time
      */
-    public function test_oldnew_courseignores()
-    {
+    public function test_oldnew_courseignores() {
         $this->resetAfterTest();
         set_config('ignoreoldgrades', 1, 'tool_gradefilter');
         set_config('ignoreolddate', 1672531200, 'tool_gradefilter');
@@ -337,7 +332,9 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase
             FROM {grade_grades} g
             JOIN {grade_items} i ON i.id = g.itemid
             JOIN {course} c ON c.id = i.courseid
-            WHERE i.id = 1 AND g.timemodified > 1672531200 AND g.timemodified < 1672531200 AND i.timecreated > 1672531200 AND i.timecreated < 1672531200 AND c.fullname NOT LIKE '%добор%' AND c.fullname NOT LIKE '%ввид%'";
+            WHERE i.id = 1 AND g.timemodified > 1672531200 AND g.timemodified < 1672531200"
+            ." AND i.timecreated > 1672531200 AND i.timecreated < 1672531200"
+            ." AND c.fullname NOT LIKE '%добор%' AND c.fullname NOT LIKE '%ввид%'";
         tool_gradefilter_sql_add_conditions($sql);
         $this->assertEquals($expected, $sql);
     }

@@ -38,15 +38,15 @@ if ($hassiteconfig) {
             1
         ));
 
-        // Настройка ignoreoldgrades
+        // Настройка ignoreoldgrades.
         $settingspage->add(new admin_setting_configcheckbox(
             'tool_gradefilter/ignoreoldgrades',
             new lang_string('ignoreoldgrades', 'tool_gradefilter'),
             new lang_string('ignoreoldgrades_desc', 'tool_gradefilter'),
-            0 // По умолчанию выключено
+            0 // По умолчанию выключено.
         ));
 
-        // Настройка ignoreolddate (unix)
+        // Настройка ignoreolddate (unix).
         $settingspage->add(new admin_setting_configtext(
             'tool_gradefilter/ignoreolddate',
             new lang_string('ignoreolddate', 'tool_gradefilter'),
@@ -55,15 +55,15 @@ if ($hassiteconfig) {
             PARAM_INT
         ));
 
-        // Настройка ignorenewgrades
+        // Настройка ignorenewgrades.
         $settingspage->add(new admin_setting_configcheckbox(
             'tool_gradefilter/ignorenewgrades',
             new lang_string('ignorenewgrades', 'tool_gradefilter'),
             new lang_string('ignorenewgrades_desc', 'tool_gradefilter'),
-            0 // По умолчанию выключено
+            0 // По умолчанию выключено.
         ));
 
-        // Настройка ignorenewdate (unix)
+        // Настройка ignorenewdate (unix).
         $settingspage->add(new admin_setting_configtext(
             'tool_gradefilter/ignorenewdate',
             new lang_string('ignorenewdate', 'tool_gradefilter'),
@@ -72,14 +72,14 @@ if ($hassiteconfig) {
             PARAM_INT
         ));
 
-        // Раздел "Игнорирование курсов"
+        // Раздел "Игнорирование курсов".
         $settingspage->add(new admin_setting_heading(
             'tool_gradefilter_ignore_courses_heading',
             new lang_string('ignorecoursesheading', 'tool_gradefilter'),
             new lang_string('ignorecoursesdesc', 'tool_gradefilter')
         ));
 
-        // Текстовое поле для ключевых слов
+        // Текстовое поле для ключевых слов.
         $settingspage->add(new admin_setting_configtextarea(
             'tool_gradefilter/ignorecoursekeywords',
             new lang_string('ignorecoursekeywords', 'tool_gradefilter'),
@@ -89,15 +89,15 @@ if ($hassiteconfig) {
         ));
 
         $runbutton = html_writer::tag(
-            'button', 
-            get_string('runplugin', 'tool_gradefilter'), 
+            'button',
+            get_string('runplugin', 'tool_gradefilter'),
             ['id' => 'runplugin', 'class' => 'btn btn-primary']
         );
         $settingspage->add(new admin_setting_description('tool_gradefilter_btn_run', '', $runbutton));
 
         $resetbutton = html_writer::tag(
-            'button', 
-            get_string('resetplugin', 'tool_gradefilter'), 
+            'button',
+            get_string('resetplugin', 'tool_gradefilter'),
             ['id' => 'resetplugin', 'class' => 'btn btn-secondary']
         );
         $settingspage->add(new admin_setting_description('tool_gradefilter_btn_reset', '', $resetbutton));
