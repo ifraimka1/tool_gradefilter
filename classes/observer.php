@@ -37,6 +37,7 @@ class Observer {
      * @throws \dml_exception
      */
     public static function tool_gradefilter_handle_user_graded(\core\event\user_graded $event) {
+        global $CFG;
         require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
 
         $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
@@ -72,6 +73,7 @@ class Observer {
      * @throws \dml_exception
      */
     public static function tool_gradefilter_handle_item_created(\core\event\grade_item_created $event) {
+        global $CFG;
         require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
 
         $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
@@ -116,6 +118,7 @@ class Observer {
      * @throws \dml_exception
      */
     public static function tool_gradefilter_handle_item_updated(\core\event\grade_item_updated $event) {
+        global $CFG;
         require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
 
         $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
@@ -176,9 +179,10 @@ class Observer {
      * @throws \dml_exception
      */
     public static function tool_gradefilter_handle_item_deleted(\core\event\grade_item_deleted $event) {
+        global $CFG;
         require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
 
-        $ispluginenabled = get_config('tool_gradefilter', 'isenabled');d
+        $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
         if (!$ispluginenabled) {
             return;
         }
