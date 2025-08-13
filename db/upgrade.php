@@ -94,5 +94,27 @@ function xmldb_tool_gradefilter_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2025021500, 'tool', 'gradefilter');
     }
 
+    if ($oldversion < 2025081200) {
+
+        // Define field courseid to be added to tool_gradefilter.
+        $table = new xmldb_table('tool_gradefilter');
+        $field = new xmldb_field('courseid', XMLDB_TYPE_INTEGER, '20', null, XMLDB_NOTNULL, null, '0', 'userid');
+
+        // Conditionally launch add field courseid.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define key courseid (foreign) to be added to tool_gradefilter.
+        $table = new xmldb_table('tool_gradefilter');
+        $key = new xmldb_key('courseid', XMLDB_KEY_FOREIGN, ['courseid'], 'course', ['id']);
+
+        // Launch add key courseid.
+        $dbman->add_key($table, $key);
+
+        // Gradefilter savepoint reached.
+        upgrade_plugin_savepoint(true, 2025081200, 'tool', 'gradefilter');
+    }
+
     return true;
 }
