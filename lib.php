@@ -88,12 +88,19 @@ function tool_gradefilter_check_grade($gradeid, $itemtype) {
         if ($item->overridden == 0 && ($item->rawgrade < $item->pass || $item->rawgrade === null)
             || $item->overridden != 0 && ($item->finalgrade < $item->pass || $item->finalgrade === null)) {
             // Exclude.
-            if (($item->rawgrade !== null || $item->finalgrade !== 0) && $item->overridden == 0 && $item->locked == 0) {
+            if ($item->finalgrade !== 0 && $item->overridden == 0 && $item->locked == 0) {
                 $newgrade->finalgrade = 0;
                 $DB->update_record('grade_grades', $newgrade);
             }
             if (!$DB->record_exists('tool_gradefilter', ['gradeid' => $gradeid])) {
-                $DB->insert_record('tool_gradefilter', ['gradeid' => $gradeid, 'itemid' => $item->id, 'userid' => $item->userid]);
+                $DB->insert_record(
+                    'tool_gradefilter',
+                    [
+                        'gradeid' => $gradeid,
+                        'itemid' => $item->id,
+                        'userid' => $item->userid,
+                        'courseid' => $item->courseid,
+                    ]);
                 $gradestatuschanged = true;
             }
         } else {
@@ -221,6 +228,71 @@ function tool_gradefilter_check_grade_pass($itemid, $pass, $max, $itemtype, $nee
 }
 
 /**
+ * Заполняет созданное задание "нулевыми" оценками для всех студентов.
+ * Для генерации оценки использует функцию generate_grade.
+ *
+ * @param $itemid
+ * @return void
+ * @throws coding_exception
+ * @throws dml_exception
+ * @throws moodle_exception
+ */
+function tool_gradefilter_init_item_grades($itemid) {
+    global $DB;
+
+    $grade_item = \grade_item::fetch(['id' => $itemid]);
+    $courseid = $grade_item->courseid;
+    $studentroleid = $DB->get_field('role', 'id', ['shortname' => 'student']);
+    $enrolled_students = get_role_users($studentroleid, \context_course::instance($courseid));
+
+    foreach ($enrolled_students as $user) {
+        tool_gradefilter_generate_grade($itemid, $user->id, $courseid);
+    }
+}
+
+/**
+ * Генерирует нулевую оценку и добавляет ее в таблицу исключенных (tool_gradefilter)
+ *
+ * @param $itemid
+ * @param $userid
+ * @param $courseid
+ * @return int gradeid
+ * @throws coding_exception
+ * @throws dml_exception
+ * @throws moodle_exception
+ */
+function tool_gradefilter_generate_grade($itemid, $userid, $courseid) {
+    global $DB;
+
+    if (!$DB->record_exists('grade_grades', ['itemid' => $itemid, 'userid' => $userid])) {
+        $grade = new \grade_grade();
+        $grade->itemid = $itemid;
+        $grade->userid = $userid;
+        $grade->rawgrade = null;
+        $grade->finalgrade = 0;
+        $grade->timecreated = time();
+        $grade->timemodified = time();
+        $gradeid = $grade->insert(get_string('pluginname', 'tool_gradefilter'));
+
+        if (!$gradeid) {
+            throw new moodle_exception('Не создалась оценка');
+        }
+
+        $DB->insert_record(
+            'tool_gradefilter',
+            [
+                'itemid' => $itemid,
+                'userid' => $userid,
+                'gradeid' => $gradeid,
+                'courseid' => $courseid,
+            ]
+        );
+
+        return $gradeid;
+    }
+}
+
+/**
  * Устанавливает проходной балл, проверяет все оценки.
  *
  * @return void
@@ -268,20 +340,28 @@ function tool_gradefilter_enable_plugin() {
                 g.finalgrade,
                 g.itemid,
                 g.userid,
-                i.courseid
-            FROM {grade_grades} g
-            JOIN {grade_items} i ON i.id = g.itemid
-            WHERE g.locked = 0
+                i.courseid,
+                i.id AS itemid
+            FROM {grade_items} i
+            LEFT JOIN {grade_grades} g ON g.itemid = i.id
+            LEFT JOIN {grade_grades} empty_g ON empty_g.itemid = i.id
+            WHERE (g.locked = 0 OR empty_g.id IS NULL)
               AND i.id $sqlin";
     tool_gradefilter_sql_add_conditions($sql);
     $grades = $DB->get_recordset_sql($sql, $params);
 
     // 4. Проверяем эти оценки. Проверка бонусов включена в check_grade.
-    // TODO: "отвязать" проверку бонусов от проверки оценок.
+    // TODO: отвязать проверку бонусов от проверки оценок.
     foreach ($grades as $grade) {
-        tool_gradefilter_check_grade($grade->id, 0);
-        echo "Оценка с id = {$grade->id} обработана<br>";
-        flush();
+        if (is_null($grade->id)) {
+            $newgradeid = tool_gradefilter_generate_grade($grade->itemid, $grade->userid, $grade->courseid);
+            tool_gradefilter_check_bonus($grade->courseid, $grade->userid);
+            echo "Оценка с id = {$newgradeid} создана<br>";
+        } else {
+            tool_gradefilter_check_grade($grade->id, 0);
+            echo "Оценка с id = {$grade->id} обработана<br>";
+            flush();
+        }
     }
     $grades->close();
 }
