@@ -30,8 +30,8 @@ $observers = [
         'callback'  => '\tool_gradefilter\observer::tool_gradefilter_handle_user_graded',
     ],
     [
-        'eventname' => '\core\event\grade_item_created',
-        'callback'  => '\tool_gradefilter\observer::tool_gradefilter_handle_item_created',
+        'eventname' => '\core\event\course_module_created',
+        'callback'  => '\tool_gradefilter\observer::tool_gradefilter_handle_cm_created',
     ],
     [
         'eventname' => '\core\event\grade_item_updated',
@@ -40,5 +40,9 @@ $observers = [
     [
         'eventname' => '\core\event\grade_item_deleted',
         'callback'  => '\tool_gradefilter\observer::tool_gradefilter_handle_item_deleted',
+    ],
+    [
+        'eventname' => '\core\event\user_enrolment_created',
+        'callback'  => '\tool_gradefilter\observer::tool_gradefilter_handle_user_enrolled',
     ],
 ];
