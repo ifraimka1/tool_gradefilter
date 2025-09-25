@@ -37,15 +37,19 @@ class Observer {
      * @throws \dml_exception
      */
     public static function tool_gradefilter_handle_user_graded(\core\event\user_graded $event) {
-        global $CFG;
-        require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
-
         $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
         if (!$ispluginenabled) {
             return;
         }
 
-        global $DB;
+        // Избегаем повторной проверки оценки.
+        $source = $event->other['source'] ?? null;
+        if ($source === get_string('pluginname', 'tool_gradefilter')) {
+            return;
+        }
+
+        global $DB, $CFG;
+        require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
 
         $itemid = $event->other['itemid'];
 
@@ -72,10 +76,7 @@ class Observer {
      * @return void
      * @throws \dml_exception
      */
-    public static function tool_gradefilter_handle_item_created(\core\event\grade_item_created $event) {
-        global $CFG;
-        require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
-
+    public static function tool_gradefilter_handle_cm_created(\core\event\course_module_created $event) {
         $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
         if (!$ispluginenabled) {
             return;
@@ -85,19 +86,26 @@ class Observer {
             return;
         }
 
-        global $DB;
-
-        $itemid = $event->objectid;
+        global $DB, $CFG;
+        require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
 
         $sql = "SELECT
+                    i.id,
                     i.gradepass AS pass,
                     i.grademax,
                     i.itemname AS name,
-                    i.itemtype AS type
+                    i.itemtype AS type,
+                    i.courseid
                 FROM {grade_items} i
-                WHERE i.id = :itemid";
+                WHERE itemmodule = :modulename
+                  AND iteminstance = :instance
+                  AND courseid = :courseid";
         tool_gradefilter_sql_add_conditions($sql);
-        $params = ['itemid' => $itemid];
+        $params = [
+            'modulename' => $event->other['modulename'],
+            'instance' => $event->other['instanceid'],
+            'courseid' => $event->courseid,
+        ];
         $item = $DB->get_record_sql($sql, $params);
 
         if (!$item) {
@@ -106,7 +114,12 @@ class Observer {
 
         $itemtype = tool_gradefilter_get_item_type($item->name, $item->type);
 
-        tool_gradefilter_check_grade_pass($itemid, $item->pass, $item->grademax, $itemtype);
+        tool_gradefilter_check_grade_pass($item->id, $item->pass, $item->grademax, $itemtype);
+
+        if ($itemtype === 0) {
+            tool_gradefilter_init_item_grades($item->id);
+            tool_gradefilter_check_bonus($item->courseid);
+        }
     }
 
     /**
@@ -118,9 +131,6 @@ class Observer {
      * @throws \dml_exception
      */
     public static function tool_gradefilter_handle_item_updated(\core\event\grade_item_updated $event) {
-        global $CFG;
-        require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
-
         $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
         if (!$ispluginenabled) {
             return;
@@ -130,7 +140,8 @@ class Observer {
             return;
         }
 
-        global $DB;
+        global $DB, $CFG;
+        require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
 
         $itemid = $event->objectid;
 
@@ -179,9 +190,6 @@ class Observer {
      * @throws \dml_exception
      */
     public static function tool_gradefilter_handle_item_deleted(\core\event\grade_item_deleted $event) {
-        global $CFG;
-        require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
-
         $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
         if (!$ispluginenabled) {
             return;
@@ -191,8 +199,49 @@ class Observer {
             return;
         }
 
-        global $DB;
+        global $DB, $CFG;
+        require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
         $DB->delete_records('tool_gradefilter', ['itemid' => $event->objectid]);
         tool_gradefilter_check_bonus($event->courseid);
+    }
+
+    /**
+     * @param \core\event\user_enrolment_created $event
+     * @return void
+     * @throws \dml_exception
+     */
+    public static function tool_gradefilter_handle_user_enrolled(\core\event\user_enrolment_created $event) {
+        $ispluginenabled = get_config('tool_gradefilter', 'isenabled');
+        if (!$ispluginenabled) {
+            return;
+        }
+
+        global $DB, $CFG;
+        require_once($CFG->dirroot . '/admin/tool/gradefilter/lib.php');
+        require_once($CFG->libdir . '/gradelib.php');
+
+        $data = $event->get_data();
+        $userid = $data['relateduserid'];
+        $courseid = $data['courseid'];
+
+        $isstudent = false;
+        $studentroleid = $DB->get_field('role', 'id', ['shortname' => 'student']);
+        $userroles = get_user_roles(\context_course::instance($courseid), $userid);
+        foreach ($userroles as $role) {
+            if ($role->id == $studentroleid) {
+                $isstudent = true;
+                break;
+            }
+        }
+
+        if ($isstudent) {
+            $gradeitems = \grade_item::fetch_all(['courseid' => $courseid]);
+            foreach ($gradeitems as $item) {
+                $itemtype = tool_gradefilter_get_item_type($item->itemname, $item->itemtype);
+                if ($itemtype === 0) {
+                    tool_gradefilter_generate_grade($item->id, $userid, $courseid);
+                }
+            }
+        }
     }
 }
