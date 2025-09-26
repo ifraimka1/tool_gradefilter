@@ -338,4 +338,92 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase {
         tool_gradefilter_sql_add_conditions($sql);
         $this->assertEquals($expected, $sql);
     }
+
+
+    /**
+     * Тестирование смены максимального балла
+     */
+    public function test_tool_gradefilter_update_grademax() {
+        global $DB;
+
+        $this->resetAfterTest(true);
+
+        $course = $this->getDataGenerator()->create_course();
+        $gradeitem = $this->getDataGenerator()->create_grade_item([
+            'courseid' => $course->id,
+            'itemname' => 'Regular Assignment',
+            'itemtype' => 'mod',
+            'gradepass' => 50,
+            'grademax' => 100,
+        ]);
+
+        
+        tool_gradefilter_enable_plugin();
+        $updateditem = $DB->get_record('grade_items', ['id' => $gradeitem->id]);
+        $this->assertEquals(60, $updateditem->gradepass);
+
+
+        $gradeitem['grademax'] = 50;
+        tool_gradefilter_enable_plugin();
+        $updateditem = $DB->get_record('grade_items', ['id' => $gradeitem->id]);
+        $this->assertEquals(30, $updateditem->gradepass);
+    }
+
+
+
+    /**
+     * Тестирование смены порога
+     */
+    public function test_tool_gradefilter_update_gradepass() {
+        global $DB;
+
+        $this->resetAfterTest(true);
+
+        $course = $this->getDataGenerator()->create_course();
+        $gradeitem = $this->getDataGenerator()->create_grade_item([
+            'courseid' => $course->id,
+            'itemname' => 'Regular Assignment',
+            'itemtype' => 'mod',
+            'gradepass' => 50,
+            'grademax' => 100,
+        ]);
+
+        
+        tool_gradefilter_enable_plugin();
+        $updateditem = $DB->get_record('grade_items', ['id' => $gradeitem->id]);
+        $this->assertEquals(60, $updateditem->gradepass);
+
+
+        $gradeitem['gradepass'] = 20;
+        tool_gradefilter_enable_plugin();
+        $updateditem = $DB->get_record('grade_items', ['id' => $gradeitem->id]);
+        $this->assertEquals(60, $updateditem->gradepass);
+    }
+
+
+    /**
+     * Тестирование смены названия
+     */
+    public function test_tool_gradefilter_update_itemname() {
+        global $DB;
+
+        $this->resetAfterTest(true);
+
+        $course = $this->getDataGenerator()->create_course();
+        $gradeitem = $this->getDataGenerator()->create_grade_item([
+            'courseid' => $course->id,
+            'itemname' => 'Regular Assignment',
+            'itemtype' => 'mod',
+            'gradepass' => 50,
+            'grademax' => 100,
+        ]);
+
+        $this->assertEquals(0, tool_gradefilter_get_item_type($gradeitem->itemname, $gradeitem->itemtype));
+
+        $gradeitem['itemname'] = 'Bonus Assignment';
+
+        $this->assertEquals(1, tool_gradefilter_get_item_type($gradeitem->itemname, $gradeitem->itemtype));
+    }
+
+
 }
