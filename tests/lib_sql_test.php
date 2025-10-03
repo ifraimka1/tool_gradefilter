@@ -351,6 +351,7 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase {
         $course = $this->getDataGenerator()->create_course();
         $gradeitem = $this->getDataGenerator()->create_grade_item([
             'courseid' => $course->id,
+            'userid' => 4771,
             'itemname' => 'Regular Assignment',
             'itemtype' => 'mod',
             'gradepass' => 50,
@@ -369,7 +370,7 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase {
         $this->assertEquals(30, $updateditem->gradepass);
     }
 
-
+    
 
     /**
      * Тестирование смены порога
@@ -382,6 +383,7 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase {
         $course = $this->getDataGenerator()->create_course();
         $gradeitem = $this->getDataGenerator()->create_grade_item([
             'courseid' => $course->id,
+            'userid' => 4771,
             'itemname' => 'Regular Assignment',
             'itemtype' => 'mod',
             'gradepass' => 50,
@@ -412,6 +414,7 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase {
         $course = $this->getDataGenerator()->create_course();
         $gradeitem = $this->getDataGenerator()->create_grade_item([
             'courseid' => $course->id,
+            'userid' => 4771,
             'itemname' => 'Regular Assignment',
             'itemtype' => 'mod',
             'gradepass' => 50,
