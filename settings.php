@@ -24,8 +24,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/mod/choicegroup/lib.php');
-
 if ($hassiteconfig) {
     $ADMIN->add('grades', new admin_category('tool_gradefilter_settings', new lang_string('pluginname', 'tool_gradefilter')));
     $settingspage = new admin_settingpage('mainsettings', new lang_string('settings_main', 'tool_gradefilter'));
