@@ -360,14 +360,19 @@ class tool_gradefilter_lib_sql_testcase extends advanced_testcase {
 
         
         tool_gradefilter_enable_plugin();
-        $updateditem = $DB->get_record('grade_items', ['id' => $gradeitem->id]);
-        $this->assertEquals(60, $updateditem->gradepass);
+        $gradeitem = $DB->get_record('grade_items', ['id' => $gradeitem->id]);
+        $this->assertEquals(60, $gradeitem->gradepass);
 
+        $params = array(
+            'grademax' => 30
+        );
 
-        $gradeitem['grademax'] = 50;
+        grade_update('mod/plugin', $course->id, $gradeitem['itemtype'], 'assignment', $gradeitem->id, 0, NULL, $params);
+
+        
         tool_gradefilter_enable_plugin();
-        $updateditem = $DB->get_record('grade_items', ['id' => $gradeitem->id]);
-        $this->assertEquals(30, $updateditem->gradepass);
+        $gradeitem = $DB->get_record('grade_items', ['id' => $gradeitem->id]);
+        $this->assertEquals(60, $gradeitem->gradepass);
     }
 
     
